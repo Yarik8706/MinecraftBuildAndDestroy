@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daeb59dcedd5dd747a0528de2abf01d5, type: 3}
+  m_Name: PlayerHeroShop
+  m_EditorClassIdentifier: 
+  characters:
+  - image: {fileID: 21300000, guid: f995beb2ec47b984a952019be859c5b6, type: 3}
+    price: 0
+    isNeedAds: 0
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 5f4edb0a980b7524dbfcedd0b686a3fd, type: 3}
+    price: 500
+    isNeedAds: 0
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 0e5379b76d87e15489746fcd6b59e6e1, type: 3}
+    price: 0
+    isNeedAds: 1
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 4f664d91d708a9946bde57461a65a079, type: 3}
+    price: 0
+    isNeedAds: 1
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: c98d4bf4b50bf194ba887894587b13e7, type: 3}
+    price: 0
+    isNeedAds: 1
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 882457067123e9f48b99a7094e0fa462, type: 3}
+    price: 2000
+    isNeedAds: 0
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 317bb87e826661d40836d20ae87c53f0, type: 3}
+    price: 3000
+    isNeedAds: 0
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 7cda6fe12950bb0449d1b85636ace907, type: 3}
+    price: 4000
+    isNeedAds: 0
+    levelRequired: 0
+  - image: {fileID: 21300000, guid: 20099abed8bef8d4988ead35a76e541f, type: 3}
+    price: 5000
+    isNeedAds: 0
+    levelRequired: 0

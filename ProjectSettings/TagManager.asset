@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Pin
+  - Dumbbells
+  - Bomb
+  - Trap
+  - Ground
+  - Enemy Rough
+  - Enemy Zombie
+  - Victory Zone
+  - Gangster
+  - Zombie
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - 
+  - PinStartGame
+  - Ground
+  - Dumbbells
+  - Pin
+  - UIWin
+  - SpawnBlocks
+  - NotPlaceBlock
+  - Block
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

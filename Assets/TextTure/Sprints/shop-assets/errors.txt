@@ -1,0 +1,2 @@
+[2023-6-19 09:36:36] layer "ic_ads.png": Duplicate path: ic_ads.png
+[2023-6-19 09:36:36] layer "+150": Expected Either a default asset specification or a layer asset specification but "+" found.
