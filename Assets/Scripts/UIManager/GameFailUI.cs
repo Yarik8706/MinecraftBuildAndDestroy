@@ -28,7 +28,7 @@ public class GameFailUI : MonoBehaviour
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += OnCompleteAds;
-        this.RegisterListener(EventID.Loss, (param) => Invoke(nameof(Show), 1f));
+        EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => Invoke(nameof(Show), 1f));
     }
 
     private void OnDisable()
@@ -36,7 +36,7 @@ public class GameFailUI : MonoBehaviour
         YandexGame.RewardVideoEvent -= OnCompleteAds;
         if (EventDispatcher.HasInstance())
         {
-            EventDispatcher.Instance.RemoveListener(EventID.Loss, (param) => Invoke("Show", 1f));
+            EventDispatcher.Instance.RemoveListener(EventID.Lose, (param) => Invoke("Show", 1f));
         }
     }
     private void Start()
@@ -66,9 +66,9 @@ public class GameFailUI : MonoBehaviour
 
     private void OnReplayGame()
     {
-        this.PostEvent(EventID.GameStartUI);
+        EventDispatcherExtension.PostEvent(EventID.GameStartUI);
         GameManager.Instance.ReplayGame();
-        this.PostEvent(EventID.IsPlayGame, true);
+        EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         Hide();
     }
 
@@ -96,8 +96,8 @@ public class GameFailUI : MonoBehaviour
             yield return new WaitForEndOfFrame();
             --t;
         }
-        this.PostEvent(EventID.GameStartUI);
-        this.PostEvent(EventID.IsPlayGame, true);
+        EventDispatcherExtension.PostEvent(EventID.GameStartUI);
+        EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         Hide();
     }
 }

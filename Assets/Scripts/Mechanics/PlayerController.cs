@@ -26,6 +26,13 @@ namespace Platformer.Mechanics
         public Animator _myAnimator;
         
         private const string IS_RUN = "IsRun";
+        
+        public static PlayerController Instance { get; private set; }
+
+        private void Start()
+        {
+            Instance = this;
+        }
 
         private void Update()
         {

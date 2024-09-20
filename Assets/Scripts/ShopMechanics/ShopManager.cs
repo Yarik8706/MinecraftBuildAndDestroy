@@ -46,9 +46,9 @@ namespace ShopMechanics
         {
             YandexGame.RewardVideoEvent += OnCompleteShopAds;
             YandexGame.RewardVideoEvent += OnCompleteAds;
-            this.RegisterListener(EventID.OpenShop, (param) => OpenShop());
-            this.RegisterListener(EventID.SelectSkin, (param) => OnSelectItem((int)param));
-            this.RegisterListener(EventID.PurchaseSkin, (param) => OnPurchaseItem((int)param));
+            EventDispatcherExtension.RegisterListener(EventID.OpenShop, (param) => OpenShop());
+            EventDispatcherExtension.RegisterListener(EventID.SelectSkin, (param) => OnSelectItem((int)param));
+            EventDispatcherExtension.RegisterListener(EventID.PurchaseSkin, (param) => OnPurchaseItem((int)param));
         }
         
         private void OnDisable()
@@ -173,8 +173,8 @@ namespace ShopMechanics
             {
                 SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
                 GameManager.Instance.ReplayGame();
-                this.PostEvent(EventID.IsPlayGame, true);
-                this.PostEvent(EventID.Home);
+                EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
+                EventDispatcherExtension.PostEvent(EventID.Home);
                 CloseShop();
             });
 

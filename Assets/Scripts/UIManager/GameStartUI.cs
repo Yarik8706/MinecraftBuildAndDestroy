@@ -46,10 +46,10 @@ public class GameStartUI : MonoBehaviour
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += OnCompleteAds;
-        this.RegisterListener(EventID.GameStartUI, (param) => Show());
-        this.RegisterListener(EventID.OnCarMove, (param) => Hide());
-        this.RegisterListener(EventID.Victory,(param) => Hide());   
-        this.RegisterListener(EventID.Loss, (param) => Hide());
+        EventDispatcherExtension.RegisterListener(EventID.GameStartUI, (param) => Show());
+        EventDispatcherExtension.RegisterListener(EventID.OnCarMove, (param) => Hide());
+        EventDispatcherExtension.RegisterListener(EventID.Victory,(param) => Hide());   
+        EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => Hide());
     }
 
     private void OnDisable()
@@ -60,7 +60,7 @@ public class GameStartUI : MonoBehaviour
             EventDispatcher.Instance.RemoveListener(EventID.GameStartUI, (param) => Show());
             EventDispatcher.Instance.RemoveListener(EventID.OnCarMove, (param) => Hide());
             EventDispatcher.Instance.RegisterListener(EventID.Victory, (param) => Hide());
-            EventDispatcher.Instance.RemoveListener(EventID.Loss, (param) => Hide());
+            EventDispatcher.Instance.RemoveListener(EventID.Lose, (param) => Hide());
         }
     }
 
@@ -107,7 +107,7 @@ public class GameStartUI : MonoBehaviour
         _rewardSkipLevelButton.onClick.AddListener(() =>
         {
             SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
-            this.PostEvent(EventID.BtnSkipLevel, true);
+            EventDispatcherExtension.PostEvent(EventID.BtnSkipLevel, true);
             YandexGame.RewVideoShow((int) VideoAdsId.SkipLevel);
         });
     }
@@ -121,16 +121,19 @@ public class GameStartUI : MonoBehaviour
             
         }
     } 
-    private void OnReplayGameButton()
+    
+    public static void OnReplayGameButton()
     {
+        GameplayControl.Instance.ResetState();
         GameManager.Instance.ReplayGame();
-        this.PostEvent(EventID.IsPlayGame,true);
+        GameplayControl.Instance.ActivateLevel();
+        EventDispatcherExtension.PostEvent(EventID.IsPlayGame,true);
     }
 
     private void OnBackHomeButton()
     {
         GameManager.Instance.ReplayGame();
-        this.PostEvent(EventID.Home);
+        EventDispatcherExtension.PostEvent(EventID.Home);
         Hide() ;
     }
     private void SetCurrentText()
@@ -168,7 +171,7 @@ public class GameStartUI : MonoBehaviour
                 SoundManager.instance.PlayAudioWin();
                 GameManager.Instance.Coin += 50;
                 GameDataManager.AddLevel(1);
-                this.PostEvent(EventID.Victory);
+                EventDispatcherExtension.PostEvent(EventID.Victory);
                 SetCurrentText();
             }
         }

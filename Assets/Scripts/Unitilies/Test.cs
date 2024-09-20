@@ -14,7 +14,7 @@ public class Test : MonoBehaviour
     }
     private void OnEnable()
     {
-        this.RegisterListener(evenID, (param) => SetIsDamageable((bool)param));
+        EventDispatcherExtension.RegisterListener(evenID, (param) => SetIsDamageable((bool)param));
     }
     private void OnDisable()
     {

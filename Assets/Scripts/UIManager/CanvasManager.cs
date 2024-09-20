@@ -69,7 +69,7 @@ public class CanvasManager : MonoBehaviour
         {
             SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
             Hide();
-            this.PostEvent(EventID.OpenShop);
+            EventDispatcherExtension.PostEvent(EventID.OpenShop);
         });
 
         //
@@ -90,8 +90,8 @@ public class CanvasManager : MonoBehaviour
 
     private void OnPlayGame()
     {
-        this.PostEvent(EventID.GameStartUI);
-        this.PostEvent(EventID.IsPlayGame, true);
+        EventDispatcherExtension.PostEvent(EventID.GameStartUI);
+        EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         Hide() ;
     }
     private void Show()
@@ -143,7 +143,7 @@ public class CanvasManager : MonoBehaviour
     private void OnEnable()
     {
         muted = YandexGame.savesData.muted;
-        this.RegisterListener(EventID.Home, (param) => Show());
+        EventDispatcherExtension.RegisterListener(EventID.Home, (param) => Show());
 
     }
 

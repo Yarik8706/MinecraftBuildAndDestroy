@@ -6,11 +6,9 @@ namespace Flatformer.GameData.UIManager
 {
     public class GameplayMechanicsStateUI : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _actionCountText;
         [SerializeField] private GameObject _editModeUIContainer;
         [SerializeField] private GameObject _levelStartButtonUIContainer;
-        [SerializeField] private GameObject _deleteBlockModeImage;
-        [SerializeField] private GameObject _spawnBlockModeImage;
+        [SerializeField] private GameObject _reloadButton;
         
         public static GameplayMechanicsStateUI Instance { get; private set; }
         
@@ -19,28 +17,15 @@ namespace Flatformer.GameData.UIManager
             Instance = this;
         }
 
-        public void StartLevelPlaybackUI()
-        {
-            GameplayMechanicsState.Instance.StartLevelPlayback();
-        }
-        
-        public void SetDeleteBlockMode()
-        {
-            _deleteBlockModeImage.SetActive(true);
-            GameplayMechanicsState.Instance.SetDeleteBlockMode();
-        }
-        
-        public void SetSpawnBlockMode()
-        {
-            _spawnBlockModeImage.SetActive(true);
-            GameplayMechanicsState.Instance.SetSpawnBlockMode();
-        }
-
-        public void SetUIWhenGameStart(bool state)
+        public void SetUIWhenLevelActive(bool state)
         {
             _editModeUIContainer.SetActive(state);
             _levelStartButtonUIContainer.SetActive(state);
-            _actionCountText.gameObject.SetActive(state);
+        }
+        
+        public void SetReloadButtonActive(bool state)
+        {
+            _reloadButton.SetActive(state);
         }
     }
 }

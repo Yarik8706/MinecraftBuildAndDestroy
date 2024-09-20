@@ -22,14 +22,14 @@ namespace Platformer.Mechanics
         private void OnEnable()
         {
             Instance = this;
-            this.RegisterListener(EventID.Start, (param) => StartGame());
-            this.RegisterListener(EventID.Replay, (param) => ReplayGame());
+            EventDispatcherExtension.RegisterListener(EventID.Start, (param) => StartGame());
+            EventDispatcherExtension.RegisterListener(EventID.Replay, (param) => ReplayGame());
         }
         #endregion
         
         [SerializeField] private PlatformerModel model;
         [SerializeField] private Canvas Canvas;
-        [SerializeField] private SpriteRenderer[] gridSpriteRenderers;
+        [SerializeField] private Material gridSpriteRenderersMaterial;
 
         public int currentLevel;
         public List<GameObject> listEffect = new();
@@ -86,10 +86,7 @@ namespace Platformer.Mechanics
             currentLevel = GameDataManager.GetLevel();
             var randomColor = model.backGrounds[Random.Range(0, model.backGrounds.Count)];
             Camera.main.backgroundColor = randomColor;
-            foreach (var gridSpriteRenderer in gridSpriteRenderers)
-            {
-                gridSpriteRenderer.color = randomColor;
-            }
+            gridSpriteRenderersMaterial.color = randomColor;
             if (GameDataManager.GetLevel() >= model.levels.Count)
             {
                 currentLevel = Random.Range(10, model.levels.Count);
@@ -101,7 +98,7 @@ namespace Platformer.Mechanics
         public void NextLevel()
         {
             if (currentLevel > model.levels.Count)
-                this.PostEvent(EventID.EndGame);
+                EventDispatcherExtension.PostEvent(EventID.EndGame);
            
             foreach(GameObject effect in listEffect)
             {
@@ -115,7 +112,7 @@ namespace Platformer.Mechanics
             if(!GameState.IsGameStart) return;
             GameState.IsGameStart = false;
             SoundManager.instance.PlayAudioFail();
-            this.PostEvent(EventID.Loss);
+            EventDispatcherExtension.PostEvent(EventID.Lose);
             if (playerRef != null)
             {
                 playerRef.isControlEnable = false;
@@ -131,7 +128,7 @@ namespace Platformer.Mechanics
             GameState.IsGameStart = false;
             GameManager.Instance.Coin += reward;
             GameDataManager.AddLevel(1);
-            this.PostEvent(EventID.OnCarMove,true);
+            EventDispatcherExtension.PostEvent(EventID.OnCarMove,true);
             if (playerRef != null)
             {
                 playerRef.isControlEnable = false;

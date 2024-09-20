@@ -1,6 +1,8 @@
 using Platformer.Mechanics;
 using System.Collections;
 using System.Collections.Generic;
+using Flatformer.GameData;
+using Mechanics;
 using UnityEngine;
 
 public class EnemyGangsterController : MonoBehaviour
@@ -27,10 +29,10 @@ public class EnemyGangsterController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameState.IsGameStart) return;
         if (!canMove)
         {
             PerformInteractions();
-
         }
         else
         {
@@ -122,6 +124,9 @@ public class EnemyGangsterController : MonoBehaviour
     private void IsDeath()
     {
         maxSpeed = 0;
+        FloatingTextSpawner.Instance.SpawnFloatingText("+50", transform);
+        SoundManager.instance.PlayAudioSound(PlayerController.Instance.coinAudio);
+        GameManager.Instance.Coin += 50;
         SoundManager.instance.PlayAudioSound(deathAudio);
         animator.SetBool(IS_DEATH, true);
     }

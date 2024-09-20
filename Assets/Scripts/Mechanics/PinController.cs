@@ -17,7 +17,7 @@ public class PinController : MonoBehaviour
     
     private void OnEnable()
     {
-        this.RegisterListener(EventID.IsPlayGame, (param) => SetIsGamePlay((bool)param));
+        EventDispatcherExtension.RegisterListener(EventID.IsPlayGame, (param) => SetIsGamePlay((bool)param));
     }
     
     private void OnDisable()

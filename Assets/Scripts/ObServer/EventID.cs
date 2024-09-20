@@ -9,7 +9,7 @@
         Start,
         IsPlayGame, // true chp tur pin false khong cho rut pin
         Victory,
-        Loss,
+        Lose,
         EndGame,
         BtnSkipLevel,
         NextLevel,

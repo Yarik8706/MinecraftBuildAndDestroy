@@ -3,6 +3,7 @@ using Platformer.Observer;
 using System.Collections;
 using System.Collections.Generic;
 using Flatformer.GameData;
+using Mechanics;
 using UnityEngine;
 
 
@@ -13,6 +14,7 @@ namespace Platformer.Mechanics
         [SerializeField] private float maxSpeed;
         [SerializeField] private LayerMask groundLayerMask;
         [SerializeField] private Animator _myAnimator;
+        [SerializeField] private GameObject _floatingText;
 
         public AudioClip zombieAudio;
         public AudioClip deathAudio;
@@ -80,13 +82,16 @@ namespace Platformer.Mechanics
             if (other.gameObject.CompareTag("Victory Zone"))
             {
                 SoundManager.instance.PlayAudioSound(zombieAudio);
-                this.PostEvent(EventID.Loss);
+                EventDispatcherExtension.PostEvent(EventID.Lose);
                 maxSpeed = 0f;
             }
         }
 
         private void EnemyDeath()
         {
+            FloatingTextSpawner.Instance.SpawnFloatingText("+50", transform);
+            SoundManager.instance.PlayAudioSound(PlayerController.Instance.coinAudio);
+            GameManager.Instance.Coin += 50;
             maxSpeed = 0;
             _isDied = true;
             Destroy(GetComponent<DeathZone>());

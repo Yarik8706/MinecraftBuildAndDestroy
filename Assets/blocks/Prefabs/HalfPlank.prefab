@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5801711313606377269}
   - component: {fileID: 2438781517178446724}
   - component: {fileID: 6985706561861498404}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: HalfPlank
   m_TagString: Ground
   m_Icon: {fileID: 0}

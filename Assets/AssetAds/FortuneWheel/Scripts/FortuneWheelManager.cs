@@ -59,7 +59,7 @@ public class FortuneWheelManager : MonoBehaviour
         //    timeTemp = Time.time;
         //}
         gameObject.SetActive(false);
-        this.PostEvent(EventID.Home);
+        EventDispatcherExtension.PostEvent(EventID.Home);
     }
    
     private void TurnWheelForFree()

@@ -161,19 +161,19 @@ namespace Platformer.Observer
     public static class EventDispatcherExtension
     {
         /// Use for registering with EventsManager
-        public static void RegisterListener(this MonoBehaviour listener, EventID eventID, Action<object> callback)
+        public static void RegisterListener(EventID eventID, Action<object> callback)
         {
             EventDispatcher.Instance.RegisterListener(eventID, callback);
         }
 
         /// Post event with param
-        public static void PostEvent(this MonoBehaviour listener, EventID eventID, object param)
+        public static void PostEvent(EventID eventID, object param)
         {
             EventDispatcher.Instance.PostEvent(eventID, param);
         }
 
         /// Post event with no param (param = null)
-        public static void PostEvent(this MonoBehaviour sender, EventID eventID)
+        public static void PostEvent(EventID eventID)
         {
             EventDispatcher.Instance.PostEvent(eventID, null);
         }

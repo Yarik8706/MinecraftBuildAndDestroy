@@ -21,7 +21,7 @@ public class CarMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        this.RegisterListener(EventID.OnCarMove, (param) => SetCanMove((bool)param));
+        EventDispatcherExtension.RegisterListener(EventID.OnCarMove, (param) => SetCanMove((bool)param));
     }
     private void OnDisable()
     {
@@ -46,6 +46,7 @@ public class CarMovement : MonoBehaviour
 
     private void CarMoveToTarget()
     {
+        StartCoroutine(DelayCarMove());
         transform.DOComplete();
         transform.DOMove(_target.GetChild(0).transform.position,2f);
        
@@ -60,7 +61,7 @@ public class CarMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(DelayCarMove());
+            
             Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("Victory Zone"))
@@ -74,6 +75,6 @@ public class CarMovement : MonoBehaviour
         transform.DOMove(_target.GetChild(1).transform.position, 2f);
         effect.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
-        this.PostEvent(EventID.Victory);
+        EventDispatcherExtension.PostEvent(EventID.Victory);
     }
 }

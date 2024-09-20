@@ -29,8 +29,8 @@ public class GameVictoryUI : MonoBehaviour
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += OnCompleteAds;
-        this.RegisterListener(EventID.Victory, (param) => OpenVictoryPanel());
-        this.RegisterListener(EventID.BtnSkipLevel, (param) => SetIsInteractBtnSkipLevel((bool)param));
+        EventDispatcherExtension.RegisterListener(EventID.Victory, (param) => OpenVictoryPanel());
+        EventDispatcherExtension.RegisterListener(EventID.BtnSkipLevel, (param) => SetIsInteractBtnSkipLevel((bool)param));
     }
 
     private void OnDisable()
@@ -81,7 +81,7 @@ public class GameVictoryUI : MonoBehaviour
             HandleEventTapContinue();
             CloseVictoryPanel();
             GameSharedUI.instance.UpdateCoinsTextUI();
-            this.PostEvent(EventID.IsPlayGame, true);
+            EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         });
 
 
@@ -104,7 +104,7 @@ public class GameVictoryUI : MonoBehaviour
 
         // hien thi lai reward button
         ShowButtonReward();
-        this.PostEvent(EventID.GameStartUI);
+        EventDispatcherExtension.PostEvent(EventID.GameStartUI);
 
     }
     private void TapContinueButton()
@@ -179,8 +179,8 @@ public class GameVictoryUI : MonoBehaviour
     {
         GameManager.Instance.NextLevel();
         CloseVictoryPanel();
-        this.PostEvent(EventID.GameStartUI);
-        this.PostEvent(EventID.IsPlayGame, true);
+        EventDispatcherExtension.PostEvent(EventID.GameStartUI);
+        EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
     }
 
     private void FailedAds()

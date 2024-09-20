@@ -48,10 +48,6 @@ public class BombController : MonoBehaviour
             Exeplosion();
             return;
         }
-        if (other.gameObject.CompareTag("Block")){
-            Exeplosion();
-            return;
-        }
         // collision in Enemy
         if(other.gameObject.CompareTag("Gangster"))
         {
@@ -63,7 +59,7 @@ public class BombController : MonoBehaviour
             Exeplosion();
             return;
         }
-        // collison in Player
+        
         if (other.gameObject.CompareTag("Player") )
         {
             Exeplosion();

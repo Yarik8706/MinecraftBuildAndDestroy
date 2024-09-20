@@ -20,7 +20,7 @@ public class GameLoadUI : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
         {
             GameManager.Instance.StartGame();
-            this.PostEvent(EventID.Home);
+            EventDispatcherExtension.PostEvent(EventID.Home);
             gameObject.SetActive(false);
         }
     }
