@@ -13,6 +13,8 @@
         EndGame,
         BtnSkipLevel,
         NextLevel,
+        StartEditMode,
+        EndEditMode,
         // Shop
         OpenShop,
         SelectSkin,

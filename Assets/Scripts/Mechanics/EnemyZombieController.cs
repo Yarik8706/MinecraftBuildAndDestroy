@@ -24,7 +24,6 @@ namespace Platformer.Mechanics
 
         private void Update()
         {
-            if(GameState.IsGameStart) return;
             HandleMovement();
             HandleInteractions();
         }

@@ -25,9 +25,14 @@ namespace Platformer.Mechanics
         {
             Instance = this;
             _blockGridBackground.SetActive(false);
-            EventDispatcherExtension.RegisterListener(EventID.Home, (param) => ExitToMenu());
-            EventDispatcherExtension.RegisterListener(EventID.Victory, (param) => SetIdleLevelState());
-            EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => ActivateLevel());
+            EventDispatcherExtension.RegisterListener(EventID.IsPlayGame, 
+                param => { if((bool)param) ActivateLevel(); });
+            EventDispatcherExtension.RegisterListener(EventID.Home, 
+                (param) => ExitToMenu());
+            EventDispatcherExtension.RegisterListener(EventID.Victory, 
+                (param) => SetIdleLevelState());
+            EventDispatcherExtension.RegisterListener(EventID.Lose, 
+                (param) => ActivateLevel());
         }
 
         private void Start()
@@ -38,7 +43,9 @@ namespace Platformer.Mechanics
         public void ActivateLevel()
         {
             if(_editMode) return;
+            EventDispatcher.Instance.PostEvent(EventID.StartEditMode);
             _editMode = true;
+            GameState.IsEditMode = true;
             ResetState();
             GameplayMechanicsStateUI.Instance.SetReloadButtonActive(false);
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(true);
@@ -65,6 +72,8 @@ namespace Platformer.Mechanics
         public void StartLevelPlayback()
         {
             _editMode = false;
+            GameState.IsEditMode = false;
+            EventDispatcher.Instance.PostEvent(EventID.EndEditMode);
             GameState.IsGameStart = true;
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(false);
             _cameraTransform.DOMove(_baseCameraTransform.position, 0.5f);
@@ -78,7 +87,8 @@ namespace Platformer.Mechanics
         public void SetIdleLevelState()
         {
             _editMode = false;
-            Debug.Log("SetIdleLevelState");
+            GameState.IsEditMode = false;
+            EventDispatcher.Instance.PostEvent(EventID.EndEditMode);
             ResetState();
             GameplayMechanicsStateUI.Instance.SetReloadButtonActive(false);
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(false);

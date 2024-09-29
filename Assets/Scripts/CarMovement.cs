@@ -2,6 +2,7 @@ using DG.Tweening;
 using Platformer.Mechanics;
 using Platformer.Observer;
 using System.Collections;
+using Flatformer.GameData;
 using UnityEngine;
 
 public class CarMovement : MonoBehaviour
@@ -14,6 +15,8 @@ public class CarMovement : MonoBehaviour
     [SerializeField] GameObject effect;
     [SerializeField] AudioClip policeAudio;
     private bool canMove;
+    
+    private int _currentStep;
 
     private void SetCanMove(bool canMove)
     {
@@ -25,11 +28,13 @@ public class CarMovement : MonoBehaviour
     }
     private void OnDisable()
     {
+        WaitForWin.Instance.StartListening();
         EventDispatcher.Instance.RemoveListener(EventID.OnCarMove, (param) => SetCanMove((bool)param));
     }
 
     private void Awake()
     {
+        WaitForWin.Instance.StopListening();
         transform.position = _target.GetChild(1).transform.position;
     }
 
@@ -48,7 +53,8 @@ public class CarMovement : MonoBehaviour
     {
         StartCoroutine(DelayCarMove());
         transform.DOComplete();
-        transform.DOMove(_target.GetChild(0).transform.position,2f);
+        transform.DOMove(_target.GetChild(0).transform.position,2f)
+            .OnComplete(() => effect.SetActive(false));
        
         effect.SetActive(false);
     }
@@ -61,20 +67,21 @@ public class CarMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            
+            _currentStep++;
             Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("Victory Zone"))
         {
             Destroy(other.gameObject);
+            _currentStep++;
         }
     }
     private IEnumerator DelayCarMove()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => _currentStep == 2);
         transform.DOMove(_target.GetChild(1).transform.position, 2f);
         effect.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         EventDispatcherExtension.PostEvent(EventID.Victory);
     }
 }

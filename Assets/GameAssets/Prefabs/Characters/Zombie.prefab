@@ -52,8 +52,9 @@ MonoBehaviour:
   maxSpeed: 2
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1408
+    m_Bits: 17792
   _myAnimator: {fileID: 4191103858015584540}
+  _floatingText: {fileID: 0}
   zombieAudio: {fileID: 8300000, guid: e7d63168f5ab2dc43853e9128d990399, type: 3}
   deathAudio: {fileID: 0}
 --- !u!114 &2149579893638379486

@@ -585,7 +585,7 @@ TextureImporter:
         width: 4
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
@@ -593,6 +593,27 @@ TextureImporter:
       bones: []
       spriteID: 8c35c4aacba771e47b0b2781120471e7
       internalID: 1910255414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: learningBlock
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 974
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8acd0498f02bbe44ca850364825e8abe
+      internalID: 1458533155
       vertices: []
       indices: 
       edges: []
@@ -619,6 +640,7 @@ TextureImporter:
       frame2: -1422264667
       frame3: -1255811356
       home: -415142911
+      learningBlock: 1458533155
       noobHeroSelect: -808530726
       playerHeroSelect: -711832960
       restart: -1513490502

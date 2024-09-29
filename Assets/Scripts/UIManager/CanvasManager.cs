@@ -1,3 +1,4 @@
+using Flatformer.GameData;
 using Platformer.Observer;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,19 +6,15 @@ using YG;
 
 public class CanvasManager : MonoBehaviour
 {
-
     [Header("Referencs")]
     [SerializeField] GameObject openSpin;
 
     [Header("UI elements")]
-    [SerializeField]
-    private GameObject _mainMenuUI;
-    [SerializeField]
-    private Image _soundOfficon;
+    [SerializeField] private GameObject _mainMenuUI;
+    [SerializeField] private Image _soundOfficon;
     [SerializeField] private MusicManager _musicManager;
     
     [Header("Event CanvasManager")]
-
     [Space(20f)]
     [SerializeField] private Button _playGameButton;
     [SerializeField] private Button _soundButton;
@@ -25,10 +22,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Button _removeAdsButton;
     [SerializeField] private Button openSpinButton;
 
-
     private bool muted;
-
-
 
     private void OnDisable()
     {

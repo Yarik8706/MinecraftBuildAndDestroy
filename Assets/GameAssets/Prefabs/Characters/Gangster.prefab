@@ -105,7 +105,7 @@ MonoBehaviour:
     m_Bits: 1152
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 17664
   animator: {fileID: 5150781093545273214}
   deathAudio: {fileID: 8300000, guid: aa5b1c0ead1bc604495e5dd2d0ea5a46, type: 3}
   raycastDistance: 3

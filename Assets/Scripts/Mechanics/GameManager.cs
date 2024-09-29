@@ -31,6 +31,8 @@ namespace Platformer.Mechanics
         [SerializeField] private Canvas Canvas;
         [SerializeField] private Material gridSpriteRenderersMaterial;
 
+        public GameObject learningBlockForStartGame;
+        public GameObject learningBlockPrefab;
         public int currentLevel;
         public List<GameObject> listEffect = new();
 

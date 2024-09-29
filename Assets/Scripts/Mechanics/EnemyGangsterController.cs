@@ -29,7 +29,6 @@ public class EnemyGangsterController : MonoBehaviour
 
     private void Update()
     {
-        if (!GameState.IsGameStart) return;
         if (!canMove)
         {
             PerformInteractions();
