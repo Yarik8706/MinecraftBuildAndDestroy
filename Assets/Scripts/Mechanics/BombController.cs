@@ -1,85 +1,86 @@
 using Platformer.Mechanics;
 using System.Collections;
 using System.Collections.Generic;
+using Mechanics;
 using UnityEngine;
 
-public class BombController : MonoBehaviour
+public class BombController : MonoBehaviour, ICanDied
 {
     public GameObject exeplosionEffect;
     [SerializeField] private GameObject fireBombEffect;
     [SerializeField] private GameObject smokeEffect;
+    [SerializeField] private Transform effectPositionTransform;
 
     public AudioClip exeplosionClip;
-
-   
-    private bool isGrounded;
+    
+    private bool wasInAir;
     private Rigidbody body;
-    Vector3 currentPos = new Vector3(0.2f, 1.2f, -0.1f);
     private GameObject objFireEffect;
 
     private void Start()
     {
         body= GetComponent<Rigidbody>();
-        objFireEffect = Instantiate(fireBombEffect);
+        objFireEffect = Instantiate(fireBombEffect, effectPositionTransform);
         GameManager.Instance.listEffect.Add(objFireEffect);
     }
+    
     private void Update()
     {
         if(body.velocity.y < -2)
         {
-            isGrounded = true;
+            wasInAir = true;
         }
-        objFireEffect.transform.position = transform.position + currentPos;
-        
     }
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Dumbbells"))
         {
-            Exeplosion();
+            Explosion();
             return;
         }
         if (other.gameObject.CompareTag("Trap"))
         {
-            Exeplosion();
+            Explosion();
             return;
         }
-        if (other.gameObject.CompareTag("Ground") && isGrounded){
-            Exeplosion();
+        if (other.gameObject.CompareTag("Ground") && wasInAir){
+            Explosion();
             return;
         }
         // collision in Enemy
         if(other.gameObject.CompareTag("Gangster"))
         {
-            Exeplosion();
+            Explosion();
             return;
         }
         if(other.gameObject.CompareTag("Zombie"))
         {
-            Exeplosion();
+            Explosion();
             return;
         }
         
         if (other.gameObject.CompareTag("Player") )
         {
-            Exeplosion();
+            Explosion();
             return;
         }
-        if (other.gameObject.CompareTag("Pin")&& isGrounded)
+        if (other.gameObject.CompareTag("Pin")&& wasInAir)
         {
-            Exeplosion();
+            Explosion();
         }
-     
     }
 
-    private void Exeplosion()
+    private void Explosion()
     {
         Instantiate(exeplosionEffect, transform.position, Quaternion.identity);
-        
-        
-        SoundManager.instance.PlayAudioSound(exeplosionClip);
+        SoundManager.Instance.PlayAudioSound(exeplosionClip);
         Destroy(gameObject);
         Destroy(objFireEffect.gameObject);
     }
-   
+
+    public void Die()
+    {
+        Explosion();
+    }
 }

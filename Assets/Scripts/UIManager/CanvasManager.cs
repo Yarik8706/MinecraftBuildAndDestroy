@@ -47,21 +47,21 @@ public class CanvasManager : MonoBehaviour
         // Handle Event Button Play Game
         _playGameButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             OnPlayGame();
         });
 
         // Handle Event Button sound
         _soundButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             HandleStateMusic();
         });
 
         //
         _openShopButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             Hide();
             EventDispatcherExtension.PostEvent(EventID.OpenShop);
         });
@@ -69,14 +69,14 @@ public class CanvasManager : MonoBehaviour
         //
         _removeAdsButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             Debug.Log("remove Ads successfully");
         });
 
         //
         openSpinButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             Hide();
             openSpin.SetActive(true);
         });
@@ -84,9 +84,10 @@ public class CanvasManager : MonoBehaviour
 
     private void OnPlayGame()
     {
+        EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.GameStartUI);
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
-        Hide() ;
+        Hide();
     }
     private void Show()
     {

@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myAnimator: {fileID: 6343788822457993860}
+  deathAudio: {fileID: 8300000, guid: aa5b1c0ead1bc604495e5dd2d0ea5a46, type: 3}
 --- !u!136 &8823472746558733793
 CapsuleCollider:
   m_ObjectHideFlags: 0

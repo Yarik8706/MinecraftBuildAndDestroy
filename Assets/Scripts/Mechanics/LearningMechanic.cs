@@ -4,6 +4,7 @@ using Flatformer.GameData;
 using Platformer.Mechanics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using YG;
 
 namespace Mechanics
 {
@@ -25,6 +26,8 @@ namespace Mechanics
         
         private void Start()
         {
+            if(!YandexGame.savesData.isNeedLearning) return;
+            GameManager.Instance.startGameButton.SetActive(false);
             _learningBlockPrefab = GameManager.Instance.learningBlockPrefab;
             StartCoroutine(WaitForStartEditMode());
         }
@@ -48,6 +51,7 @@ namespace Mechanics
             {
                 Destroy(_activeLearningBlock);
                 GameManager.Instance.learningBlockForStartGame.SetActive(true);
+                GameManager.Instance.startGameButton.SetActive(true);
                 return;
             }
             _activeLearningBlock.transform.position = 

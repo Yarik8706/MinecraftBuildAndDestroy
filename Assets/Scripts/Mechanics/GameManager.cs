@@ -4,6 +4,7 @@ using Platformer;
 using Platformer.Model;
 using Platformer.Observer;
 using System.Collections.Generic;
+using Unitilies;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,6 @@ namespace Platformer.Mechanics
         private void OnEnable()
         {
             Instance = this;
-            EventDispatcherExtension.RegisterListener(EventID.Start, (param) => StartGame());
             EventDispatcherExtension.RegisterListener(EventID.Replay, (param) => ReplayGame());
         }
         #endregion
@@ -33,10 +33,12 @@ namespace Platformer.Mechanics
 
         public GameObject learningBlockForStartGame;
         public GameObject learningBlockPrefab;
+        public GameObject startGameButton;
         public int currentLevel;
         public List<GameObject> listEffect = new();
 
         private GameObject _objLevel;
+        private Camera _camera;
 
         private const string IS_WIN = "IsWin";
         private const string IS_DEATH = "IsDeath";
@@ -49,6 +51,7 @@ namespace Platformer.Mechanics
             YandexGame.ResetSaveProgress();
 #endif
             YandexGame.InitEnvirData();
+            _camera = Camera.main;
             Canvas.GetComponent<CanvasScaler>().matchWidthOrHeight =
                 YandexGame.EnvironmentData.deviceType == "desktop" ? 1 : 0;
         }
@@ -57,7 +60,6 @@ namespace Platformer.Mechanics
         {
             if (EventDispatcher.HasInstance())
             {
-                EventDispatcher.Instance.RemoveListener(EventID.Start, (param) => StartGame());
                 EventDispatcher.Instance.RemoveListener(EventID.Replay, (param) => ReplayGame());
             }
         }
@@ -87,13 +89,13 @@ namespace Platformer.Mechanics
 
             currentLevel = GameDataManager.GetLevel();
             var randomColor = model.backGrounds[Random.Range(0, model.backGrounds.Count)];
-            Camera.main.backgroundColor = randomColor;
+            _camera.backgroundColor = randomColor;
             gridSpriteRenderersMaterial.color = randomColor;
             if (GameDataManager.GetLevel() >= model.levels.Count)
             {
                 currentLevel = Random.Range(10, model.levels.Count);
             }
-
+            MetricaSender.Instance.SendLevelStartData();
             _objLevel = Instantiate(model.levels[currentLevel], transform);
         }
 
@@ -111,24 +113,25 @@ namespace Platformer.Mechanics
 
         public void PlayerDeath(PlayerController playerRef)
         {
-            if(!GameState.IsGameStart) return;
+            if(!GameState.IsGameStart && !GameState.IsEditMode) return;
             GameState.IsGameStart = false;
-            SoundManager.instance.PlayAudioFail();
             EventDispatcherExtension.PostEvent(EventID.Lose);
+            MetricaSender.Instance.SendLevelFailedData();
             if (playerRef != null)
             {
                 playerRef.isControlEnable = false;
                 playerRef.transform.rotation = Quaternion.Euler(0, 180f, 0);
-                SoundManager.instance.PlayAudioSound(playerRef.deathAudio);
+                SoundManager.Instance.PlayAudioSound(playerRef.deathAudio);
                 playerRef._myAnimator.SetBool(IS_DEATH, true);
             }
         }
 
         public void PlayerWin(PlayerController playerRef, int reward)
         {
-            if(!GameState.IsGameStart) return;
+            if(!GameState.IsGameStart && !GameState.IsEditMode) return;
             GameState.IsGameStart = false;
-            GameManager.Instance.Coin += reward;
+            Instance.Coin += reward;
+            MetricaSender.Instance.SendLevelCompleteData();
             GameDataManager.AddLevel(1);
             EventDispatcherExtension.PostEvent(EventID.OnCarMove,true);
             if (playerRef != null)

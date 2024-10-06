@@ -105,8 +105,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.9591504, z: 7.0115523}
-  m_Center: {x: -6.1547057e-15, y: 1.2733843, z: -0.4659992}
+  m_Size: {x: 1, y: 1.9591504, z: 6.155365}
+  m_Center: {x: -1.14475605e-14, y: 1.2733843, z: -0.8940938}
 --- !u!114 &1243154000307118578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   _timeMovement: 2
   effect: {fileID: 291231819721671073}
   policeAudio: {fileID: 8300000, guid: 67b4874705c6ee1438e75e3c4ae8f2eb, type: 3}
+  explosionAudio: {fileID: 8300000, guid: 4e7b851eec2cb4841909018b3f224898, type: 3}
 --- !u!1001 &5300701855175492267
 PrefabInstance:
   m_ObjectHideFlags: 0

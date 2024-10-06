@@ -109,7 +109,7 @@ namespace ShopMechanics
             _characterPurchaseButton.onClick.RemoveAllListeners();
             _characterPurchaseButton.onClick.AddListener(() =>
             {
-                SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
                 EventDispatcherExtension.PostEvent(EventID.PurchaseSkin, this._index);
             });
         }
@@ -126,7 +126,7 @@ namespace ShopMechanics
             _selectItemButton.onClick.RemoveAllListeners();
             _selectItemButton.onClick.AddListener(() =>
             {
-                SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
                 EventDispatcherExtension.PostEvent(EventID.SelectSkin, this._index);
             });
         }

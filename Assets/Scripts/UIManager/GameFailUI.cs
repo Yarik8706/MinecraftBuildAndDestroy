@@ -20,15 +20,13 @@ public class GameFailUI : MonoBehaviour
 {
     [SerializeField] private GameObject gameVictory;
     [Header("Event UI")]
-    [SerializeField] 
-    private Button _replayButton;
-    [SerializeField] 
-    private Button _rewardButton;
+    [SerializeField] private Button _replayButton;
+    [SerializeField] private Button _rewardButton;
     
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += OnCompleteAds;
-        EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => Invoke(nameof(Show), 1f));
+        EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => Invoke(nameof(OpenLosePanel), 1f));
     }
 
     private void OnDisable()
@@ -36,7 +34,7 @@ public class GameFailUI : MonoBehaviour
         YandexGame.RewardVideoEvent -= OnCompleteAds;
         if (EventDispatcher.HasInstance())
         {
-            EventDispatcher.Instance.RemoveListener(EventID.Lose, (param) => Invoke("Show", 1f));
+            EventDispatcher.Instance.RemoveListener(EventID.Lose, (param) => Invoke(nameof(OpenLosePanel), 1f));
         }
     }
     private void Start()
@@ -53,27 +51,29 @@ public class GameFailUI : MonoBehaviour
             {
                 YandexGame.FullscreenShow();
             }
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             OnReplayGame();
         });
 
         _rewardButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             YandexGame.RewVideoShow((int)VideoAdsId.Reward);
         });
     }
 
     private void OnReplayGame()
     {
+        EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.GameStartUI);
         GameManager.Instance.ReplayGame();
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         Hide();
     }
 
-    private void Show()
+    private void OpenLosePanel()
     {
+        SoundManager.Instance.PlayAudioFail();
         gameObject.SetActive(true);
     }
 
@@ -96,6 +96,7 @@ public class GameFailUI : MonoBehaviour
             yield return new WaitForEndOfFrame();
             --t;
         }
+        EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.GameStartUI);
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         Hide();

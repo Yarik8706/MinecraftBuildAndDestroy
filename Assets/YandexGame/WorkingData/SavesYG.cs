@@ -16,5 +16,6 @@ namespace YG
         public int allMoney;
         public string openLevels;
         public int freeSpin;
+        public bool isNeedLearning = true;
     }
 }

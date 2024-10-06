@@ -262,8 +262,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: pullthepin.keystore'
-  AndroidKeyaliasName: pullthepin
+  AndroidKeystoreName: '{inproject}: user.keystore'
+  AndroidKeyaliasName: key
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -729,7 +729,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: Lag;USE_ADMOB
+    Android: Lag;USE_ADMOB;YG_PLUGIN_YANDEX_GAME
     Standalone: YG_PLUGIN_YANDEX_GAME
     WebGL: YG_PLUGIN_YANDEX_GAME
   additionalCompilerArguments: {}

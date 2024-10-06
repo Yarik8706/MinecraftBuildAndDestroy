@@ -137,7 +137,7 @@ namespace ShopMechanics
                     GameDataManager.SpendCoin(character.price);
                     GameDataManager.AddPurchaseCharacter(index, ActiveSkinType);
 
-                    SoundManager.instance.PlayAudioSound(purcharAudio);
+                    SoundManager.Instance.PlayAudioSound(purcharAudio);
                     GameSharedUI.instance.UpdateCoinsTextUI();
                 }
                 else
@@ -171,7 +171,7 @@ namespace ShopMechanics
             _closeShopButton.onClick.RemoveAllListeners();
             _closeShopButton.onClick.AddListener(() =>
             {
-                SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
                 GameManager.Instance.ReplayGame();
                 EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
                 EventDispatcherExtension.PostEvent(EventID.Home);
@@ -181,7 +181,7 @@ namespace ShopMechanics
             _rewardAdsButton.onClick.RemoveAllListeners();
             _rewardAdsButton.onClick.AddListener(() =>
             {
-                SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
                 YandexGame.RewVideoShow((int) VideoAdsId.Reward2);
             });
         }

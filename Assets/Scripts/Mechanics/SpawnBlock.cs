@@ -16,7 +16,14 @@ namespace Platformer.Mechanics
 
         public static bool IsSpawningNow;
         
+        private Camera _camera;
+        
         private readonly List<GameObject> _spawnedObjects = new List<GameObject>();
+        
+        private void Awake()
+        {
+            _camera = Camera.main;
+        }
         
         public void StartSpawn()
         {
@@ -41,11 +48,12 @@ namespace Platformer.Mechanics
         private void Update()
         {
             IsSpawningNow = false;
-            if(!_isStartSpawn 
+            if(!_isStartSpawn
+               || !TimeDelayForSpawnOrDelete.Instance.CanIBuildOrDestroy()
                || !Input.GetMouseButtonDown(0) 
                || DeleteBlock.IsDeletingNow
                || BuildsAndDestroysCount.Instance.BuildCount <= 0) return;
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out _, 50, _notSpawnLayer, QueryTriggerInteraction.Collide) 
                 || !Physics.Raycast(ray, out var raycastHit, 5000, _spawnLayer)) return;
             IsSpawningNow = true;
@@ -58,6 +66,8 @@ namespace Platformer.Mechanics
             BuildsAndDestroysCount.Instance.AddBuildCount(-1);
             
             var block = Instantiate(_spawnObject, spawnPosition, Quaternion.identity);
+            SoundManager.Instance.PlayAudioBuild();
+            TimeDelayForSpawnOrDelete.Instance.ResetTimer();
             _spawnedObjects.Add(block);
         }
     }

@@ -13,13 +13,13 @@ public class FloatingText : MonoBehaviour
 
     private void Awake()
     {
-        textMesh = this.GetComponent<TextMesh>();
+        textMesh = GetComponent<TextMesh>();
     }
 
-    void Start()
+    private void Start()
     {
         timeTemp = Time.time;
-        GameObject.Destroy(this.gameObject, LifeTime);
+        Destroy(gameObject, LifeTime);
     }
 
     public void SetText(string text)
@@ -28,7 +28,7 @@ public class FloatingText : MonoBehaviour
             textMesh.text = text;
     }
 
-    void Update()
+    private void Update()
     {
         if (FadeEnd)
         {
@@ -37,15 +37,6 @@ public class FloatingText : MonoBehaviour
                 alpha = 1.0f - (Time.time - ((timeTemp + LifeTime) - 1));
             }
         }
-
         textMesh.color = new Color(TextColor.r, TextColor.g, TextColor.b, alpha);
-
-        if (Camera.current != null)
-        {
-            this.transform.localScale = Vector3.one;
-            Quaternion rota = Quaternion.LookRotation((this.transform.position - Camera.current.transform.position).normalized);
-            this.transform.rotation = rota;
-        }
-        
     }
 }

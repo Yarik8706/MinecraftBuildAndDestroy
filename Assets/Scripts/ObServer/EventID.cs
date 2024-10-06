@@ -6,15 +6,13 @@
         Home,
         Replay,
         GameStartUI,
-        Start,
-        IsPlayGame, // true chp tur pin false khong cho rut pin
+        StartGame,
+        IsPlayGame, 
         Victory,
         Lose,
         EndGame,
         BtnSkipLevel,
-        NextLevel,
-        StartEditMode,
-        EndEditMode,
+        EditMode,
         // Shop
         OpenShop,
         SelectSkin,

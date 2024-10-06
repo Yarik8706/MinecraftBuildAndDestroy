@@ -1,5 +1,7 @@
 using System;
 using Flatformer.GameData;
+using Mechanics;
+using Platformer.Observer;
 using UnityEngine;
 
 
@@ -19,7 +21,7 @@ namespace Platformer.Mechanics
         public bool isControlEnable = true;
 
         private bool isPlayerDir;
-        private bool canMove;
+        private bool canMove; 
 
         private float dirZ = 1;
 
@@ -104,6 +106,14 @@ namespace Platformer.Mechanics
                 transform.Rotate(0, -180, 0);
             }
             transform.Translate(translate);
+        }
+
+        public void Die()
+        {
+            _myAnimator.SetBool("IsDeath", true);
+            SoundManager.Instance.PlayAudioSound(deathAudio);
+            EventDispatcherExtension.PostEvent(EventID.Lose);
+            Destroy(gameObject, 3f);
         }
     }
 }

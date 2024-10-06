@@ -1,7 +1,8 @@
 
+using Mechanics;
 using UnityEngine;
 
-public class TrapController : MonoBehaviour
+public class TrapController : MonoBehaviour, ICanDied
 {
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private AudioClip trapClip;
@@ -10,36 +11,35 @@ public class TrapController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Dumbbells"))
         {
-            Instantiate(explosionPrefab, transform.GetChild(0).position, Quaternion.identity);
-            Destroy(gameObject);
+            Die();
             return;
         }
 
         if (other.gameObject.CompareTag("Bomb"))
         {
-            Destroy(gameObject);
+            Die();
             return;
         }
         if (other.gameObject.CompareTag("Gangster"))
         {
-            Instantiate(explosionPrefab, transform.GetChild(0).position, Quaternion.identity);
-            SoundManager.instance.PlayAudioSound(trapClip);
-            Destroy(gameObject);
+            Die();
             return;
         }
         if (other.gameObject.CompareTag("Zombie"))
         {
-            Instantiate(explosionPrefab, transform.GetChild(0).position, Quaternion.identity);
-            SoundManager.instance.PlayAudioSound(trapClip);
-            Destroy(gameObject);
+            Die();
             return;
         } 
         if (other.gameObject.CompareTag("Player"))
         {
-            Instantiate(explosionPrefab, transform.GetChild(0).position, Quaternion.identity);
-            SoundManager.instance.PlayAudioSound(trapClip);
-            Destroy(gameObject);
+            Die();
         }
     }
 
+    public void Die()
+    {
+        SoundManager.Instance.PlayAudioSound(trapClip);
+        Instantiate(explosionPrefab, transform.GetChild(0).position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }

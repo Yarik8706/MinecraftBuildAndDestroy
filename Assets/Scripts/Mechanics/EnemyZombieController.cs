@@ -9,17 +9,14 @@ using UnityEngine;
 
 namespace Platformer.Mechanics
 {
-    public class EnemyZombieController : MonoBehaviour
+    public class EnemyZombieController : Enemy
     {
         [SerializeField] private float maxSpeed;
         [SerializeField] private LayerMask groundLayerMask;
         [SerializeField] private Animator _myAnimator;
         [SerializeField] private GameObject _floatingText;
+        [SerializeField] private AudioClip zombieAudio;
 
-        public AudioClip zombieAudio;
-        public AudioClip deathAudio;
-
-        private bool _isDied;
         private const string IS_DEATH = "IsDeath";
 
         private void Update()
@@ -27,6 +24,7 @@ namespace Platformer.Mechanics
             HandleMovement();
             HandleInteractions();
         }
+        
         private void HandleInteractions()
         {
             Ray forwardDirection = new Ray(transform.position + new Vector3(0, 0.7f, 0), transform.TransformDirection(Vector3.forward));
@@ -36,64 +34,23 @@ namespace Platformer.Mechanics
             }
         }
 
-        private void OnGUI()
-        {
-            Debug.DrawRay(transform.position + new Vector3(0, 0.7f, 0), transform.TransformDirection(Vector3.forward));
-        }
-
         private void HandleMovement()
         {
-            var translate = Vector3.forward * Time.deltaTime * maxSpeed;
+            var translate = Vector3.forward * (Time.deltaTime * maxSpeed);
             transform.Translate(translate);
         }
-        
-        private void OnCollisionEnter(Collision other)
+
+        protected override void IsAttack()
         {
-            if(_isDied) return;
-            if (other.gameObject.CompareTag("Player"))
-            {
-                SoundManager.instance.PlayAudioSound(zombieAudio);
-                maxSpeed = 0f;
-                return;
-            }
-            if (other.gameObject.CompareTag("Gangster"))
-            {
-                SoundManager.instance.PlayAudioSound(zombieAudio);
-                return;
-            }
-            if (other.gameObject.CompareTag("Bomb"))
-            {
-                EnemyDeath();
-                Destroy(gameObject, 1f);
-                return;
-            }
-            if (other.gameObject.CompareTag("Trap"))
-            {
-                EnemyDeath();
-                Destroy(gameObject, 1f);
-                return;
-            }
-            if (other.gameObject.CompareTag("Dumbbells"))
-            {
-                EnemyDeath();
-                Destroy(gameObject, 1f);
-            }
-            if (other.gameObject.CompareTag("Victory Zone"))
-            {
-                SoundManager.instance.PlayAudioSound(zombieAudio);
-                EventDispatcherExtension.PostEvent(EventID.Lose);
-                maxSpeed = 0f;
-            }
+            SoundManager.Instance.PlayAudioSound(zombieAudio);
+            maxSpeed = 0f;
         }
 
-        private void EnemyDeath()
+        public override void Die()
         {
-            FloatingTextSpawner.Instance.SpawnFloatingText("+50", transform);
-            SoundManager.instance.PlayAudioSound(PlayerController.Instance.coinAudio);
-            GameManager.Instance.Coin += 50;
+            base.Die();
             maxSpeed = 0;
-            _isDied = true;
-            Destroy(GetComponent<DeathZone>());
+            IsDied = true;
             _myAnimator.SetBool(IS_DEATH, true);
         }
     }

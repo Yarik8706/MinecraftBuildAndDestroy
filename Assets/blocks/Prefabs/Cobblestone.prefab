@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2671601613214527010}
   - component: {fileID: 6909040070682876006}
   - component: {fileID: 7683047320565757756}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Cobblestone
   m_TagString: Ground
   m_Icon: {fileID: 0}

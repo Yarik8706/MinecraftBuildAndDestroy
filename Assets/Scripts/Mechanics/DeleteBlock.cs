@@ -8,6 +8,13 @@ namespace Platformer.Mechanics
         [SerializeField] private GameObject _deleteObjectEffect;
         
         public bool isStartDelete;
+        
+        private Camera _camera;
+        
+        private void Awake()
+        {
+            _camera = Camera.main;
+        }
 
         public static bool IsDeletingNow;
         
@@ -25,10 +32,11 @@ namespace Platformer.Mechanics
         {
             IsDeletingNow = false;
             if(!isStartDelete 
+               || !TimeDelayForSpawnOrDelete.Instance.CanIBuildOrDestroy()
                || !Input.GetMouseButtonDown(0) 
                || SpawnBlock.IsSpawningNow 
                || BuildsAndDestroysCount.Instance.DestroyCount <= 0) return;
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out var raycastHit, 5000, LayerMask.GetMask("Block"))) return;
             if (raycastHit.collider.TryGetComponent(out BuildingBlock buildingBlock))
             {
@@ -47,7 +55,9 @@ namespace Platformer.Mechanics
                 BuildsAndDestroysCount.Instance.AddDestroyCount(-1);
             }
             IsDeletingNow = true;
+            TimeDelayForSpawnOrDelete.Instance.ResetTimer();
             Instantiate(_deleteObjectEffect, raycastHit.collider.transform.position, Quaternion.identity);
+            SoundManager.Instance.PlayAudioDestroy();
             Destroy(raycastHit.collider.gameObject);
         }
     }

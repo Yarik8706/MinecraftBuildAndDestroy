@@ -88,7 +88,7 @@ public class GameStartUI : MonoBehaviour
         _backHomeButton.onClick.RemoveAllListeners();
         _backHomeButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             if(_timeShowInter <= 0)
             {
                 YandexGame.FullscreenShow();
@@ -99,14 +99,14 @@ public class GameStartUI : MonoBehaviour
         _replayGameButton.onClick.RemoveAllListeners();
         _replayGameButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             OnReplayGameButton();
         });
         
         _rewardSkipLevelButton.onClick.RemoveAllListeners();
         _rewardSkipLevelButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             EventDispatcherExtension.PostEvent(EventID.BtnSkipLevel, true);
             YandexGame.RewVideoShow((int) VideoAdsId.SkipLevel);
         });
@@ -124,9 +124,11 @@ public class GameStartUI : MonoBehaviour
     
     public static void OnReplayGameButton()
     {
+        GameState.IsGameStart = false;
+        GameplayControl.Instance.SetIdleLevelState();
         GameplayControl.Instance.ResetState();
         GameManager.Instance.ReplayGame();
-        GameplayControl.Instance.ActivateLevel();
+        EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame,true);
     }
 
@@ -168,7 +170,7 @@ public class GameStartUI : MonoBehaviour
             t--;
             if(t == 0)
             {
-                SoundManager.instance.PlayAudioWin();
+                SoundManager.Instance.PlayAudioWin();
                 GameManager.Instance.Coin += 50;
                 GameDataManager.AddLevel(1);
                 EventDispatcherExtension.PostEvent(EventID.Victory);

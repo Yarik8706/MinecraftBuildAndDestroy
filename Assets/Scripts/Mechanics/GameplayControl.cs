@@ -18,21 +18,23 @@ namespace Platformer.Mechanics
         [SerializeField] private GameObject _blockGridBackground;
         
         private bool _editMode;
-        
+
+        private const float TimeTransitionToEditMode = 0.5f;
+
         public static GameplayControl Instance { get; private set; }
 
         private void Awake()
         {
             Instance = this;
             _blockGridBackground.SetActive(false);
-            EventDispatcherExtension.RegisterListener(EventID.IsPlayGame, 
-                param => { if((bool)param) ActivateLevel(); });
             EventDispatcherExtension.RegisterListener(EventID.Home, 
                 (param) => ExitToMenu());
+            EventDispatcherExtension.RegisterListener(EventID.StartGame, 
+                (param) => ActivateEditModeAfterSomeTime());
             EventDispatcherExtension.RegisterListener(EventID.Victory, 
-                (param) => SetIdleLevelState());
+                (param) => Invoke(nameof(SetIdleLevelState), 2f));
             EventDispatcherExtension.RegisterListener(EventID.Lose, 
-                (param) => ActivateLevel());
+                (param) => Invoke(nameof(SetIdleLevelState), 2f));
         }
 
         private void Start()
@@ -40,22 +42,28 @@ namespace Platformer.Mechanics
             SetIdleLevelState();
         }
 
+        public void ActivateEditModeAfterSomeTime()
+        {
+            Invoke(nameof(ActivateLevel), TimeTransitionToEditMode);
+        }
+
         public void ActivateLevel()
         {
+            if(GameState.IsGameStart) return;
             if(_editMode) return;
-            EventDispatcher.Instance.PostEvent(EventID.StartEditMode);
+            EventDispatcher.Instance.PostEvent(EventID.EditMode, true);
             _editMode = true;
-            GameState.IsEditMode = true;
             ResetState();
             GameplayMechanicsStateUI.Instance.SetReloadButtonActive(false);
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(true);
             _cameraTransform.DOMove(_editCameraTransform.position, 0.5f).OnComplete(() =>
             {
                _blockGridBackground.SetActive(true); 
+               GameState.IsEditMode = true;
+               _deleteBlockControl.StartDelete();
+               _spawnBlockControl.StartSpawn();
             });
             _cameraTransform.DORotate(_editCameraTransform.rotation.eulerAngles, 0.5f);
-            _deleteBlockControl.StartDelete();
-            _spawnBlockControl.StartSpawn();
         }
 
         public void ResetState()
@@ -66,6 +74,7 @@ namespace Platformer.Mechanics
 
         private void ExitToMenu()
         {
+            SetIdleLevelState();
             GameManager.Instance.ReplayGame();
         }
 
@@ -73,7 +82,7 @@ namespace Platformer.Mechanics
         {
             _editMode = false;
             GameState.IsEditMode = false;
-            EventDispatcher.Instance.PostEvent(EventID.EndEditMode);
+            EventDispatcher.Instance.PostEvent(EventID.EditMode, false);
             GameState.IsGameStart = true;
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(false);
             _cameraTransform.DOMove(_baseCameraTransform.position, 0.5f);
@@ -88,7 +97,7 @@ namespace Platformer.Mechanics
         {
             _editMode = false;
             GameState.IsEditMode = false;
-            EventDispatcher.Instance.PostEvent(EventID.EndEditMode);
+            EventDispatcher.Instance.PostEvent(EventID.EditMode, false);
             ResetState();
             GameplayMechanicsStateUI.Instance.SetReloadButtonActive(false);
             GameplayMechanicsStateUI.Instance.SetUIWhenLevelActive(false);

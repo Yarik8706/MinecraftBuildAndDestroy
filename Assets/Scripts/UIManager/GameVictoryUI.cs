@@ -60,7 +60,7 @@ public class GameVictoryUI : MonoBehaviour
     private void OpenVictoryPanel()
     {
         _victoryUI.gameObject.SetActive(true);
-        SoundManager.instance.PlayAudioWin();
+        SoundManager.Instance.PlayAudioWin();
         SetAllCoinText();
         _tapContinueButton.gameObject.SetActive(false);
         StartCoroutine(DelayShowTapcontinueButton(3));
@@ -77,10 +77,11 @@ public class GameVictoryUI : MonoBehaviour
         _tapContinueButton.onClick.RemoveAllListeners();
         _tapContinueButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             HandleEventTapContinue();
             CloseVictoryPanel();
             GameSharedUI.instance.UpdateCoinsTextUI();
+            EventDispatcherExtension.PostEvent(EventID.StartGame);
             EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
         });
 
@@ -89,7 +90,7 @@ public class GameVictoryUI : MonoBehaviour
         _rewardButton.onClick.RemoveAllListeners();
         _rewardButton.onClick.AddListener(() =>
         {
-            SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+            SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
             YandexGame.RewVideoShow((int) VideoAdsId.Reward1);
         });
     }
@@ -116,7 +117,7 @@ public class GameVictoryUI : MonoBehaviour
                 YandexGame.FullscreenShow();
             }
         }
-        SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio);
+        SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
         GameManager.Instance.NextLevel();
     }
 

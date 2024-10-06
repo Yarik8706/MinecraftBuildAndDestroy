@@ -26,7 +26,7 @@ public class GiveRewardOnCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             var p = other.gameObject.GetComponent<PlayerController>();
-            SoundManager.instance.PlayAudioSound(p.coinAudio);
+            SoundManager.Instance.PlayAudioSound(p.coinAudio);
             GameManager.Instance.Coin += coinReward;
             Destroy(instance);
             OnSuccessGiveRewardHandler.Invoke();

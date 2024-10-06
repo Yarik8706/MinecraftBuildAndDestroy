@@ -10,13 +10,11 @@ namespace Flatformer.GameData
         
         public static WaitForWin Instance { get; private set; }
         
+        internal bool isNeedMakeWin = true;
+        
         private void Awake()
         {
             Instance = this;
-        }
-
-        private void OnEnable()
-        {
             StartListening();
         }
 
@@ -27,17 +25,10 @@ namespace Flatformer.GameData
                 if((bool)param) StartCoroutine(TimeDelayForWinCoroutine());
             });
         }
-        
-        public void StopListening()
-        {
-            EventDispatcher.Instance.RemoveListener(EventID.OnCarMove, (param) =>
-            {
-                if((bool)param) StartCoroutine(TimeDelayForWinCoroutine());
-            });
-        }
 
         private IEnumerator TimeDelayForWinCoroutine()
         {
+            if(!isNeedMakeWin) yield break;
             yield return new WaitForSeconds(3f);
             EventDispatcherExtension.PostEvent(EventID.Victory);
         }
