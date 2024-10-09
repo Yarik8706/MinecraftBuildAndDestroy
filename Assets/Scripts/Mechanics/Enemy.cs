@@ -18,6 +18,8 @@ namespace Mechanics
 
         public virtual void Die()
         {
+            if(IsDied) return;
+            IsDied = true;
             FloatingTextSpawner.Instance.SpawnFloatingText("+50", 
                 transform.position+Vector3.up);
             SoundManager.Instance.PlayAudioSound(PlayerController.Instance.coinAudio);
@@ -38,11 +40,6 @@ namespace Mechanics
             }
 
             if (other.gameObject.CompareTag("Bomb"))
-            {
-                Die();
-                return;
-            }
-            if (other.gameObject.CompareTag("Dumbbells"))
             {
                 Die();
                 return;

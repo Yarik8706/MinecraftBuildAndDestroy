@@ -95,7 +95,6 @@ namespace Mechanics
 
         public override void Die()
         {
-            IsDied = true;
             maxSpeed = 0;
             base.Die();
             animator.SetBool(IS_DEATH, true);

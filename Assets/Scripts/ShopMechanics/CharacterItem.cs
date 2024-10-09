@@ -4,6 +4,7 @@ using Platformer.Observer;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -23,8 +24,11 @@ namespace ShopMechanics
     }
     public class CharacterItem : MonoBehaviour
     {
+        public static readonly UnityEvent<int> BuySkinEvent = new UnityEvent<int>();
+        public static readonly UnityEvent<int> SelectSkinEvent = new UnityEvent<int>();
+        
         [Header("Information Character Item")]
-        [SerializeField] private int _index;
+        private int _index = -1;
         [SerializeField] private Image _characterStateBG;
         [SerializeField] private Image _characterImage;
         [SerializeField] private GameObject _characterSelect;
@@ -36,7 +40,6 @@ namespace ShopMechanics
         [SerializeField] private Button _characterPurchaseButton;
         [SerializeField] private Button _selectItemButton;
 
-
         [Header("State Character Image")]
         [SerializeField] private Sprite _backGroundLock;
         [SerializeField] private Sprite _backGroundUnlock;
@@ -45,14 +48,9 @@ namespace ShopMechanics
         private CharacterSkinType _characterSkinType;
 		private int _unlockLevelRequired;
 
-        // methods
-
-        public void SetChatacterIndex(int index) => this._index = index;
+        public void SetCharacterIndex(int index) => this._index = index;
 
         public void SetCharacterImage(Sprite sprite) => _characterImage.sprite = sprite;
-
-
-        public void SetPriceCharacter(int price) => _priceText.text = price.ToString();
 
         public void SetPurchaseEqualAds()
         {
@@ -61,6 +59,13 @@ namespace ShopMechanics
         }
 
         public void SetPurchaseEqualActiveLevel(string header)
+        {
+            _characterPurchaseButton.gameObject.SetActive(false);
+            _headerText.gameObject.SetActive(true);
+            _headerText.text = header;
+        }
+
+        public void SetPurchaseEqualActiveDays(string header)
         {
             _characterPurchaseButton.gameObject.SetActive(false);
             _headerText.gameObject.SetActive(true);
@@ -95,22 +100,37 @@ namespace ShopMechanics
 		
 		private void OnEnable()
 		{
+            if(_index == -1) return;
 			if (_unlockLevelRequired != 0 && GameDataManager.GetLevel() > _unlockLevelRequired) 
 			{
-				SetPurchaseAsCharacter();
-				_headerText.gameObject.SetActive(false);
-				_selectItemButton.interactable = true;
-				OnSelectItem();
-			}
+                UnlockCharacterWithLevelRequired();
+			} 
+            else if (GameDataManager.GetPurchaseAsCharacter(_index, _characterSkinType))
+            {
+                SetPurchaseAsCharacter();
+                _headerText.gameObject.SetActive(false);
+                _selectItemButton.interactable = true;
+                OnSelectItem();
+            }
 		}
+
+        private void UnlockCharacterWithLevelRequired()
+        {
+            Debug.Log("Item add check: " + _index);
+            SetPurchaseAsCharacter();
+            GameDataManager.AddPurchaseCharacter(_index);
+            _headerText.gameObject.SetActive(false);
+            _selectItemButton.interactable = true;
+            OnSelectItem();
+        }
 		
         public void OnPurchaseItem()
         {
             _characterPurchaseButton.onClick.RemoveAllListeners();
             _characterPurchaseButton.onClick.AddListener(() =>
             {
-                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
-                EventDispatcherExtension.PostEvent(EventID.PurchaseSkin, this._index);
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio); 
+                BuySkinEvent.Invoke(_index);
             });
         }
 
@@ -127,7 +147,7 @@ namespace ShopMechanics
             _selectItemButton.onClick.AddListener(() =>
             {
                 SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
-                EventDispatcherExtension.PostEvent(EventID.SelectSkin, this._index);
+                SelectSkinEvent.Invoke(_index);
             });
         }
 
@@ -143,11 +163,11 @@ namespace ShopMechanics
             _selectItemButton.interactable = true;
         }
 
-        
         public void OnCompleteAds()
         {
             StartCoroutine(DelayCompleteAds(5));
         }
+        
         private IEnumerator DelayCompleteAds(float delay)
         {
             var t = delay;
@@ -166,30 +186,47 @@ namespace ShopMechanics
         {
 		
             _characterSkinType = characterSkinType;
-            SetChatacterIndex(index);
+            SetCharacterIndex(index);
             SetCharacterImage(character.image);
+            if (characterSkinType == CharacterSkinType.Target)
+            {
+                Debug.Log("Set money: " + GameDataManager.GetPurchaseAsCharacter(index, characterSkinType));
+                Debug.Log("Index: " + index);
+                Debug.Log("money: " + character.price);
+            } 
             if (GameDataManager.GetPurchaseAsCharacter(index, characterSkinType))
             {
                 SetPurchaseAsCharacter();
                 OnSelectItem();
             }
+            else if (character.levelRequired != 0 && GameDataManager.GetLevel() > character.levelRequired) 
+            {
+                UnlockCharacterWithLevelRequired();
+            } 
             else
             {
                 SetCharacterStateBG(StateCharacterItem.Lock);
-                OnPurchaseItem();
                 if (character.isNeedAds)
                 {
+                    OnPurchaseItem();
                     SetPurchaseEqualAds();
                 }
-				else if(character.levelRequired != 0 && GameDataManager.GetLevel() < character.levelRequired)
+                else if (character.levelRequired != 0 && GameDataManager.GetLevel() < character.levelRequired)
                 {
-					_unlockLevelRequired = character.levelRequired;
+                    _unlockLevelRequired = character.levelRequired;
                     SetCharacterStateBG(StateCharacterItem.AlphaLock);
-                    SetPurchaseEqualActiveLevel(ShopManager.UnlockLevelText.GetText() + "10");
+                    SetPurchaseEqualActiveLevel(ShopManager.UnlockLevelText.GetText() + character.levelRequired);
                 }
-				else if(character.price != 0)
+                else if (character.price != 0)
                 {
+                    Debug.Log("Set PRICE");
+                    OnPurchaseItem();
                     SetPurchaseEqualCoin(character.price);
+                }
+                else if (character.entryDaysRequired != 0) 
+                {
+                    SetCharacterStateBG(StateCharacterItem.AlphaLock);
+                    SetPurchaseEqualActiveDays(ShopManager.OpenOnText.GetText() + character.entryDaysRequired);
                 }
             }
         }

@@ -19,7 +19,8 @@ namespace ShopMechanics
         internal CharacterShopData ActiveShopData;
         
         [Header("reference")]
-        [SerializeField] private AudioClip purcharAudio;
+        [SerializeField] private AudioClip _purcharAudio;
+
         [Header("UI elements")] 
         [SerializeField] private ShopItemsGenerator[] _generators;
         [SerializeField] private ChangeCharacterShop _changeCharacterShop;
@@ -34,6 +35,7 @@ namespace ShopMechanics
         private int _purchaseItemIndex;
         
         public static readonly MultiText UnlockLevelText = new ("Разблокируется на уровне ", "Unlock At Level ");
+        public static readonly MultiText OpenOnText = new("Требуеться дней заходить: ", "Days required to get it: ");
 
         public static ShopManager Instance { get; private set; }
 
@@ -45,22 +47,13 @@ namespace ShopMechanics
         private void OnEnable()
         {
             YandexGame.RewardVideoEvent += OnCompleteShopAds;
-            YandexGame.RewardVideoEvent += OnCompleteAds;
-            EventDispatcherExtension.RegisterListener(EventID.OpenShop, (param) => OpenShop());
-            EventDispatcherExtension.RegisterListener(EventID.SelectSkin, (param) => OnSelectItem((int)param));
-            EventDispatcherExtension.RegisterListener(EventID.PurchaseSkin, (param) => OnPurchaseItem((int)param));
+            CharacterItem.BuySkinEvent.AddListener(OnPurchaseItem);
+            CharacterItem.SelectSkinEvent.AddListener(OnSelectItem);
         }
         
         private void OnDisable()
         {
             YandexGame.RewardVideoEvent -= OnCompleteShopAds;
-            YandexGame.RewardVideoEvent -= OnCompleteAds;
-            if (EventDispatcher.HasInstance())
-            {
-                EventDispatcher.Instance.RemoveListener(EventID.OpenShop, (param) => OpenShop());
-                EventDispatcher.Instance.RemoveListener(EventID.SelectSkin, (param) => OnSelectItem((int)param));
-                EventDispatcher.Instance.RemoveListener(EventID.PurchaseSkin, (param) => OnPurchaseItem((int)param));
-            }
         }
 
         private void OnCompleteShopAds(int obj)
@@ -104,7 +97,6 @@ namespace ShopMechanics
             // Save Data
             GameDataManager.SetCharacterIndex(index, ActiveSkinType);
         }
-
         
         private void SelectItem(int newIndex)
         {
@@ -137,7 +129,7 @@ namespace ShopMechanics
                     GameDataManager.SpendCoin(character.price);
                     GameDataManager.AddPurchaseCharacter(index, ActiveSkinType);
 
-                    SoundManager.Instance.PlayAudioSound(purcharAudio);
+                    SoundManager.Instance.PlayAudioSound(_purcharAudio);
                     GameSharedUI.instance.UpdateCoinsTextUI();
                 }
                 else
@@ -159,9 +151,9 @@ namespace ShopMechanics
                 _noEnoughCoinsText.DOFade(0f, 1f);
             });
         }
-        public void AnimationShakeItem(Transform transform)
+
+        private static void AnimationShakeItem(Transform transform)
         {
-            Debug.Log("Dotweening");
             transform.DOComplete();
             transform.DOShakePosition(1f, new Vector3(10f, 0, 0), 10, 0).SetEase(Ease.Linear);
         }
@@ -186,32 +178,7 @@ namespace ShopMechanics
             });
         }
 
-        private void OnCompleteAds(int id)
-        {
-            if(id != (int) VideoAdsId.Reward2) return;
-            StartCoroutine(DelayCompleteAds(5));
-        }
-        private IEnumerator DelayCompleteAds(float time)
-        {
-            var t = time;
-            while (t > 0)
-            {
-                yield return new WaitForEndOfFrame();
-                t--;
-                if (t == 0)
-                    GameDataManager.AddCoin(150);
-            }
-            GameSharedUI.instance.UpdateCoinsTextUI();
-        }
-        private void FaildedAds() 
-            => Debug.Log("a");
-
-        private void OpenShop() 
-            => _shopUI.SetActive(true);
-
         private void CloseShop() 
             => _shopUI.SetActive(false);
-        
-        
     }
 }

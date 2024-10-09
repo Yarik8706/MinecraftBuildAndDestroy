@@ -13,7 +13,8 @@ public enum VideoAdsId
     SkipLevel,
     Reward1,
     ShopReward,
-    Reward2
+    Reward2,
+    Learning
 }
 
 public class GameFailUI : MonoBehaviour

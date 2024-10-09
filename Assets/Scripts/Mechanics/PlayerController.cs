@@ -19,8 +19,6 @@ namespace Platformer.Mechanics
         public AudioClip deathAudio;
         
         public bool isControlEnable = true;
-
-        private bool isPlayerDir;
         private bool canMove; 
 
         private float dirZ = 1;
@@ -92,21 +90,31 @@ namespace Platformer.Mechanics
 
         private void HandleMovement()
         {
-            var translate = Vector3.forward * Time.deltaTime * maxSpeed;
+            var translate = Vector3.forward * (Time.deltaTime * maxSpeed);
             bool isRun = translate != Vector3.zero;
             if (isRun)
             {
                 _myAnimator.SetBool(IS_RUN, isRun);
             }
-            var forwardDirection = new Ray(transform.position + new Vector3(0,0.5f,0), transform.TransformDirection(Vector3.forward));
-            isPlayerDir = Physics.Raycast(forwardDirection, maxDistance, playerDirLayerMask);
-            if (isPlayerDir)
+            var forwardDirectionTop = new Ray(transform.position + new Vector3(0,1.5f,0),
+                transform.TransformDirection(Vector3.forward));
+            var isPlayerDirTop = Physics.Raycast(forwardDirectionTop, maxDistance, playerDirLayerMask);
+            
+            var forwardDirectionDown = new Ray(transform.position + new Vector3(0,0.5f,0),
+                transform.TransformDirection(Vector3.forward));
+            var isPlayerDirDown = Physics.Raycast(forwardDirectionDown, maxDistance, playerDirLayerMask);
+            if (isPlayerDirTop || isPlayerDirDown)
             {
-
                 transform.Rotate(0, -180, 0);
             }
             transform.Translate(translate);
         }
+
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.white;
+        //     Gizmos.DrawRay(transform.position + new Vector3(0,0.9f,0), transform.TransformDirection(Vector3.forward));
+        // }
 
         public void Die()
         {

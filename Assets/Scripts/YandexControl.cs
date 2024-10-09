@@ -3,6 +3,7 @@ using System.Collections;
 using Flatformer.GameData;
 using Platformer.Mechanics;
 using ShopMechanics;
+using UIManager;
 using UnityEngine;
 using YG;
 
@@ -25,6 +26,8 @@ public class YandexControl : MonoBehaviour
             Int32.MaxValue, "nonePhoto");
         ShopManager.Instance.Init();
         GameSharedUI.instance.Init();
+        EveryDayRewardUI.Instance.Init();
+        LearningStateUI.Instance.Init();
         GameStartUI.Instance.Init();
     }
 }

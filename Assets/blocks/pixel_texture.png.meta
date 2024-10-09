@@ -627,7 +627,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -635,6 +635,90 @@ TextureImporter:
       bones: []
       spriteID: bf3d612196ddb784d8d5261cdaf7a805
       internalID: 1125373338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: everyDayRewards
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 998
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbe8ceadc44dc294ea736a21d1ff4a6e
+      internalID: 174142603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: close_btn
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 1009
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2492790f07dd1c642aafe33ecd664a75
+      internalID: -1238666916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LearningState
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 1009
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b659a7eda77855c45926cfb0a3d5de41
+      internalID: -830879858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: offImage
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 1009
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 965ea09aac07a474c9c7825529034e4e
+      internalID: 886500433
       vertices: []
       indices: 
       edges: []
@@ -652,10 +736,13 @@ TextureImporter:
     nameFileIdTable:
       BuildingBlockAction: -349131270
       DestroyAction: 1619852273
+      LearningState: -830879858
       StartGameButton: 1125373338
       arrow: -1192693136
       background2: 1910255414
       clickImage: 1514730398
+      close_btn: -1238666916
+      everyDayRewards: 174142603
       fortuneWheel1: -1114285111
       fortunewheel: 987144468
       frame1: -355845881
@@ -664,6 +751,7 @@ TextureImporter:
       home: -415142911
       learningBlock: 1458533155
       noobHeroSelect: -808530726
+      offImage: 886500433
       playerHeroSelect: -711832960
       restart: -1513490502
       selected: 759025241

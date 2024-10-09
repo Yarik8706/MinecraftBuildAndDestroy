@@ -9,5 +9,6 @@ namespace ShopMechanics
         public int price;
         public bool isNeedAds;
         public int levelRequired;
+        public int entryDaysRequired;
     }
 }

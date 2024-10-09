@@ -43,6 +43,9 @@ namespace Flatformer.GameData
 
         public int selectCharacterIndex;
         public int secondSelectCharacterIndex;
+        public int lastCallDate;
+        public EveryDayRewardState[] everyDayRewardsInfo;
+        public int freeSpinsCount;
 
         // Coin
         public int GetCoin
@@ -79,6 +82,10 @@ namespace Flatformer.GameData
         public int GetSecondSelectCharacter() 
             => secondSelectCharacterIndex;
 
+        public void AddFreeSpin(int count)
+        {
+            freeSpinsCount += count;
+        }
     }
     #endregion
 
@@ -123,7 +130,7 @@ namespace Flatformer.GameData
             MusicManager.instance.InitData();
         }
 
-        private static void SavePlayerData()
+        public static void SavePlayerData()
         {
             var data = JsonUtility.ToJson(_playerData);
             YandexGame.savesData.playerData = data;
@@ -228,6 +235,17 @@ namespace Flatformer.GameData
                     break;
             }
             SaveShopData();
+        }
+
+        public static PlayerData GetPlayerData()
+        {
+            return _playerData;
+        }
+
+        public static void AddFreeSpin(int count)
+        {
+            _playerData.AddFreeSpin(count);
+            SavePlayerData();
         }
     }
 }

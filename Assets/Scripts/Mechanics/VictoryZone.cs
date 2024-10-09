@@ -28,11 +28,6 @@ namespace Platformer.Mechanics
                 Die();
                 return;
             }
-            if (other.gameObject.CompareTag("Dumbbells"))
-            {
-                Die();
-                return;
-            }
             if (other.gameObject.CompareTag("Trap"))
             {
                 Die();

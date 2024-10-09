@@ -861,9 +861,9 @@ MonoBehaviour:
   _headerText: {fileID: 9195050865461570636}
   _characterPurchaseButton: {fileID: 5444776535047806346}
   _selectItemButton: {fileID: 7177372919394678911}
-  _backGroundLock: {fileID: 21300000, guid: 4c146942697312d4d9b0cbca61313756, type: 3}
-  _backGroundUnlock: {fileID: 21300000, guid: c55602615455a65429912b0ef1839125, type: 3}
-  _backGroundAlphaLock: {fileID: 21300000, guid: e965051975c625a46842995ff7098d87, type: 3}
+  _backGroundLock: {fileID: -1422264667, guid: f93fc23de096f8a44988eb68e582c743, type: 3}
+  _backGroundUnlock: {fileID: -1422264667, guid: f93fc23de096f8a44988eb68e582c743, type: 3}
+  _backGroundAlphaLock: {fileID: -1255811356, guid: f93fc23de096f8a44988eb68e582c743, type: 3}
 --- !u!1 &8440218517737045799
 GameObject:
   m_ObjectHideFlags: 0

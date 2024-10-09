@@ -2,6 +2,7 @@
 using System.Collections;
 using Flatformer.GameData;
 using Platformer.Mechanics;
+using Platformer.Observer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using YG;
@@ -32,6 +33,20 @@ namespace Mechanics
             StartCoroutine(WaitForStartEditMode());
         }
 
+        private void OnEnable()
+        {
+            EventDispatcherExtension.RegisterListener(EventID.EditMode, param =>
+            {
+                if(!(bool)param)DisableLearning();
+            });
+        }
+
+        private void DisableLearning()
+        {
+            if(_activeLearningBlock == null) return;
+            _activeLearningBlock.SetActive(false);
+        }
+
         private void StartLearning()
         {
             _activeLearningBlock = Instantiate(_learningBlockPrefab);
@@ -41,6 +56,10 @@ namespace Mechanics
 
         private void OnDestroy()
         {
+            EventDispatcher.Instance.RemoveListener(EventID.EditMode, param =>
+            {
+                if(!(bool)param)DisableLearning();
+            });
             Destroy(_activeLearningBlock);
             GameManager.Instance.learningBlockForStartGame.SetActive(false);
         }
@@ -54,8 +73,10 @@ namespace Mechanics
                 GameManager.Instance.startGameButton.SetActive(true);
                 return;
             }
-            _activeLearningBlock.transform.position = 
-                _learningSteps[_currentStep].learningBlockSpawnPosition.position;
+
+            _activeLearningBlock.transform.rotation = Quaternion.identity;
+            _activeLearningBlock.transform.parent = _learningSteps[_currentStep].learningBlockSpawnPosition.transform;
+            _activeLearningBlock.transform.localPosition = Vector3.zero;
             if (_learningSteps[_currentStep].learningBuildStep != null)
             {
                _learningSteps[_currentStep].learningBuildStep.Init(true, this); 

@@ -50,7 +50,6 @@ namespace Platformer.Mechanics
         {
             base.Die();
             maxSpeed = 0;
-            IsDied = true;
             _myAnimator.SetBool(IS_DEATH, true);
         }
     }
