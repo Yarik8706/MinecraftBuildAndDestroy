@@ -1,5 +1,5 @@
 {
-    "idSave": 3058,
+    "idSave": 82,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -9,6 +9,6 @@
     "allMoney": 0,
     "openLevels": "",
     "freeSpin": 0,
-    "isNeedLearning": true,
-    "freeLearningCount": 3
+    "isNeedLearning": false,
+    "freeLearningCount": 0
 }

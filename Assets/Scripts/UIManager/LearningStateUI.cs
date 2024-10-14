@@ -15,7 +15,7 @@ namespace UIManager
         [SerializeField] private TMP_Text _freeLearningCountText;
         [SerializeField] private GameObject _adsIcon;
         
-        public const int LevelWhenLearningStop = 26;
+        public const int LevelWhenLearningStop = -1;
 
         private bool _learningMessageState = true;
         
@@ -32,7 +32,7 @@ namespace UIManager
             {
                 _learningMessage.SetActive(false);
             }
-            else if (GameDataManager.GetLevel() >= LevelWhenLearningStop && YandexGame.savesData.freeLearningCount == 0)
+            if (GameDataManager.GetLevel() >= LevelWhenLearningStop && YandexGame.savesData.freeLearningCount <= 0)
             {
                _adsIcon.SetActive(true);
                _freeLearningCountText.transform.parent.gameObject.SetActive(false);
@@ -77,6 +77,7 @@ namespace UIManager
         {
             if(videoId != (int)VideoAdsId.Learning) return;
             ChangeLearningState(true);
+            Debug.Log("DSfafdas");
         }
 
         public void ShowAdsForLearning()

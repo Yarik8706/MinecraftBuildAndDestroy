@@ -29,7 +29,7 @@ namespace Mechanics
         
         public static LearningMechanic Instance { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             Instance = this;
         }
@@ -84,6 +84,7 @@ namespace Mechanics
             if(_activeLearningBlock != null) Destroy(_activeLearningBlock);
             GameManager.Instance.learningBlockForStartGame.SetActive(false);
             GameManager.Instance.learningArrow.SetActive(false);
+            if(_activeClickMark) _activeClickMark.SetActive(false);
         }
 
         public void NextLearningStep()

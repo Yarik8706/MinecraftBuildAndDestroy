@@ -5,6 +5,7 @@ using Flatformer.GameData.UIManager;
 using Mechanics;
 using Platformer.Observer;
 using UnityEngine;
+using YG;
 
 namespace Platformer.Mechanics
 {
@@ -65,6 +66,7 @@ namespace Platformer.Mechanics
             });
             _cameraTransform.DORotate(_editCameraTransform.rotation.eulerAngles, 0.5f);
             LearningMechanic.Instance.SetLearningMode();
+            YandexGame.GameplayStart();
         }
 
         public void ResetState()
@@ -96,6 +98,7 @@ namespace Platformer.Mechanics
 
         public void SetIdleLevelState()
         {
+            YandexGame.GameplayStop();
             _editMode = false;
             GameState.IsEditMode = false;
             EventDispatcher.Instance.PostEvent(EventID.EditMode, false);

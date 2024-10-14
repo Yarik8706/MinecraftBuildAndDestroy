@@ -61,7 +61,7 @@ namespace Platformer.Mechanics
         private void Awake()
         {
 #if UNITY_EDITOR
-            YandexGame.ResetSaveProgress();
+            // YandexGame.ResetSaveProgress();
 #endif
             YandexGame.InitEnvirData();
             _camera = Camera.main;

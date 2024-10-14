@@ -3,6 +3,7 @@ using Flatformer.GameData;
 using Platformer.Mechanics;
 using Platformer.Observer;
 using System.Collections;
+using Mechanics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -135,6 +136,7 @@ public class GameStartUI : MonoBehaviour
         GameManager.Instance.ReplayGame();
         EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame,true);
+        if(LearningMechanic.Instance) LearningMechanic.Instance.SetLearningMode();
     }
 
     private void OnBackHomeButton()
