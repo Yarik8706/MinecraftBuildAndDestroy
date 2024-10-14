@@ -44,6 +44,7 @@ namespace Mechanics
                 Die();
                 return;
             }
+
             if (other.gameObject.CompareTag("Trap"))
             {
                 Die();

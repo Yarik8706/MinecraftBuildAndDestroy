@@ -107,13 +107,13 @@ MonoBehaviour:
     targetBlockForDelete: {fileID: 2072624056651971363}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 5222916937730723186}
-    targetBlockForDelete: {fileID: 3261034209867708586}
-    learningBuildStep: {fileID: 0}
-  - learningBlockSpawnPosition: {fileID: 1513667384563999888}
     targetBlockForDelete: {fileID: 8538169027460292653}
     learningBuildStep: {fileID: 0}
-  - learningBlockSpawnPosition: {fileID: 2912341058749196501}
+  - learningBlockSpawnPosition: {fileID: 1513667384563999888}
     targetBlockForDelete: {fileID: 14961823047516802}
+    learningBuildStep: {fileID: 0}
+  - learningBlockSpawnPosition: {fileID: 2912341058749196501}
+    targetBlockForDelete: {fileID: 3261034209867708586}
     learningBuildStep: {fileID: 0}
 --- !u!1 &525229983936347096
 GameObject:

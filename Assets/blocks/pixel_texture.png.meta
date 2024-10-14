@@ -521,8 +521,8 @@ TextureImporter:
         y: 1002
         width: 15
         height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.4294698, y: 0.7050032}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -711,7 +711,7 @@ TextureImporter:
         width: 15
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -719,6 +719,27 @@ TextureImporter:
       bones: []
       spriteID: 965ea09aac07a474c9c7825529034e4e
       internalID: 886500433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LearningArrow
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 972
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16697018cbeccf346b8912ab40e947d0
+      internalID: -1494220501
       vertices: []
       indices: 
       edges: []
@@ -736,6 +757,7 @@ TextureImporter:
     nameFileIdTable:
       BuildingBlockAction: -349131270
       DestroyAction: 1619852273
+      LearningArrow: -1494220501
       LearningState: -830879858
       StartGameButton: 1125373338
       arrow: -1192693136

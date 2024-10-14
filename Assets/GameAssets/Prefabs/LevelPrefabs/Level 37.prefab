@@ -103,10 +103,10 @@ MonoBehaviour:
     targetBlockForDelete: {fileID: 474014357326284290}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 2837444471179462206}
-    targetBlockForDelete: {fileID: 5375524495856255699}
+    targetBlockForDelete: {fileID: 95115885804920279}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 5069915500774957222}
-    targetBlockForDelete: {fileID: 95115885804920279}
+    targetBlockForDelete: {fileID: 5375524495856255699}
     learningBuildStep: {fileID: 0}
 --- !u!1 &525229983936347096
 GameObject:
@@ -1095,7 +1095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5330291071750546324, guid: 7dbfacd29389e4248aa4f196839360b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.47
+      value: 6.15
       objectReference: {fileID: 0}
     - target: {fileID: 5330291071750546324, guid: 7dbfacd29389e4248aa4f196839360b0, type: 3}
       propertyPath: m_LocalPosition.z

@@ -15,7 +15,9 @@ namespace UIManager
         [SerializeField] private TMP_Text _freeLearningCountText;
         [SerializeField] private GameObject _adsIcon;
         
-        public const int LevelWhenLearningStop = 23;
+        public const int LevelWhenLearningStop = 26;
+
+        private bool _learningMessageState = true;
         
         public static LearningStateUI Instance { get; private set; }
         
@@ -33,7 +35,7 @@ namespace UIManager
             else if (GameDataManager.GetLevel() >= LevelWhenLearningStop && YandexGame.savesData.freeLearningCount == 0)
             {
                _adsIcon.SetActive(true);
-               _freeLearningCountText.gameObject.SetActive(false);
+               _freeLearningCountText.transform.parent.gameObject.SetActive(false);
                _learningStateInfo.SetActive(false);
             }
             else if(GameDataManager.GetLevel() < LevelWhenLearningStop)
@@ -42,13 +44,14 @@ namespace UIManager
             }
             EventDispatcherExtension.RegisterListener(EventID.EditMode, (param) =>
             {
+                if(!(bool)param) return;
                 switch (GameDataManager.GetLevel())
                 {
                     case 0:
                         _learningMessage.SetActive(false);
                         break;
                     case 1:
-                        _learningMessage.SetActive(true);
+                        if(_learningMessageState) _learningMessage.SetActive(true);
                         break;
                     case 2:
                         _learningMessage.SetActive(false);
@@ -58,6 +61,14 @@ namespace UIManager
                 {
                     _learningStateInfo.SetActive(false);
                     _learningMessage.SetActive(false);
+                    if (YandexGame.savesData.freeLearningCount > 0)
+                    {
+                        _freeLearningCountText.transform.parent.gameObject.SetActive(true);
+                        _freeLearningCountText.text = YandexGame.savesData.freeLearningCount.ToString();
+                    }
+
+                    YandexGame.savesData.isNeedLearning = false;
+                    YandexGame.SaveProgress();
                 }
             });
         }
@@ -87,13 +98,14 @@ namespace UIManager
         {
             if (GameDataManager.GetLevel() >= LevelWhenLearningStop)
             {
+                if(YandexGame.savesData.isNeedLearning) return;
                 if (YandexGame.savesData.freeLearningCount != 0)
                 {
                     YandexGame.savesData.freeLearningCount--;
                     if (YandexGame.savesData.freeLearningCount == 0)
                     {
                         _adsIcon.SetActive(true);
-                        _freeLearningCountText.gameObject.SetActive(false);
+                        _freeLearningCountText.transform.parent.gameObject.SetActive(false);
                     }
                     YandexGame.SaveProgress();
                     _freeLearningCountText.text = YandexGame.savesData.freeLearningCount.ToString();
@@ -117,6 +129,7 @@ namespace UIManager
             YandexGame.SaveProgress();
             _learningStateInfo.SetActive(!isNeedLearning);
             _learningMessage.SetActive(false);
+            _learningMessageState = isNeedLearning;
             GameStartUI.OnReplayGameButton();
         }
     }

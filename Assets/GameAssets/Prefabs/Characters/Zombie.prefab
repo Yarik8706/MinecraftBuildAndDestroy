@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbdf1260ef1efe49a3cb564000af864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAudio: {fileID: 0}
   maxSpeed: 2
   groundLayerMask:
     serializedVersion: 2
@@ -56,7 +57,6 @@ MonoBehaviour:
   _myAnimator: {fileID: 4191103858015584540}
   _floatingText: {fileID: 0}
   zombieAudio: {fileID: 8300000, guid: e7d63168f5ab2dc43853e9128d990399, type: 3}
-  deathAudio: {fileID: 0}
 --- !u!114 &2149579893638379486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,10 +88,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.43050665
+  m_Radius: 0.52511173
   m_Height: 2.0086598
   m_Direction: 1
-  m_Center: {x: 0.004144907, y: 0.8886819, z: 0.14297023}
+  m_Center: {x: 0.004144907, y: 0.8886819, z: 0.16089171}
 --- !u!54 &3655882583395861880
 Rigidbody:
   m_ObjectHideFlags: 0

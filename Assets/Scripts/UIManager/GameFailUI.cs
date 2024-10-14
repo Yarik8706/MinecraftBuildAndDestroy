@@ -14,7 +14,8 @@ public enum VideoAdsId
     Reward1,
     ShopReward,
     Reward2,
-    Learning
+    Learning,
+    RewardForAds
 }
 
 public class GameFailUI : MonoBehaviour

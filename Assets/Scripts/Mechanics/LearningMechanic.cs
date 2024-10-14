@@ -3,6 +3,7 @@ using System.Collections;
 using Flatformer.GameData;
 using Platformer.Mechanics;
 using Platformer.Observer;
+using UIManager;
 using UnityEngine;
 using UnityEngine.Serialization;
 using YG;
@@ -22,13 +23,23 @@ namespace Mechanics
         [SerializeField] private LearningStep[] _learningSteps;
         
         private GameObject _learningBlockPrefab;
+        private GameObject _activeClickMark;
         private GameObject _activeLearningBlock;
         private int _currentStep;
         
+        public static LearningMechanic Instance { get; private set; }
+
         private void Start()
+        {
+            Instance = this;
+        }
+
+        public void SetLearningMode()
         {
             if(!YandexGame.savesData.isNeedLearning) return;
             GameManager.Instance.startGameButton.SetActive(false);
+            GameManager.Instance.blocksBuildAndDestroyInfo.SetActive(false);
+            _activeClickMark = GameManager.Instance.clickMarkPrefab;
             _learningBlockPrefab = GameManager.Instance.learningBlockPrefab;
             StartCoroutine(WaitForStartEditMode());
         }
@@ -51,7 +62,17 @@ namespace Mechanics
         {
             _activeLearningBlock = Instantiate(_learningBlockPrefab);
             _activeLearningBlock.transform.position = new Vector3(0, 0, 0.9f);
+            _activeClickMark.SetActive(true);
             NextLearningStep();
+        }
+
+        private void Update()
+        {
+            if (_activeClickMark && _activeClickMark.activeSelf)
+            {
+                _activeClickMark.transform.position = _activeLearningBlock.transform.position;
+                _activeClickMark.transform.localScale = _activeLearningBlock.transform.localScale;
+            }
         }
 
         private void OnDestroy()
@@ -60,8 +81,9 @@ namespace Mechanics
             {
                 if(!(bool)param)DisableLearning();
             });
-            Destroy(_activeLearningBlock);
+            if(_activeLearningBlock != null) Destroy(_activeLearningBlock);
             GameManager.Instance.learningBlockForStartGame.SetActive(false);
+            GameManager.Instance.learningArrow.SetActive(false);
         }
 
         public void NextLearningStep()
@@ -69,6 +91,12 @@ namespace Mechanics
             if (_currentStep == _learningSteps.Length)
             {
                 Destroy(_activeLearningBlock);
+                _activeClickMark.SetActive(false);
+                if (GameDataManager.GetLevel() <= LearningStateUI.LevelWhenLearningStop)
+                {
+                    GameManager.Instance.learningArrow.SetActive(true);
+                }
+                GameManager.Instance.blocksBuildAndDestroyInfo.SetActive(true);
                 GameManager.Instance.learningBlockForStartGame.SetActive(true);
                 GameManager.Instance.startGameButton.SetActive(true);
                 return;

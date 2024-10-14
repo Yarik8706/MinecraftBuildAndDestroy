@@ -58,6 +58,11 @@ namespace Platformer.Mechanics
             TimeDelayForSpawnOrDelete.Instance.ResetTimer();
             Instantiate(_deleteObjectEffect, raycastHit.collider.transform.position, Quaternion.identity);
             SoundManager.Instance.PlayAudioDestroy();
+            // if (raycastHit.collider.gameObject.layer != LayerMask.GetMask("Ground"))
+            // {
+            //     Destroy(raycastHit.collider.gameObject.transform.parent.gameObject);
+            //     return;
+            // }
             Destroy(raycastHit.collider.gameObject);
         }
     }

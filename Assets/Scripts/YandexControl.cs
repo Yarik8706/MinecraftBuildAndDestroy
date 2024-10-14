@@ -11,6 +11,7 @@ public class YandexControl : MonoBehaviour
 {
     private void Awake()
     {
+        MultiTextUI.lang = YandexGame.lang;
         StartCoroutine(YandexSDKEnabledCoroutine());
     }
 

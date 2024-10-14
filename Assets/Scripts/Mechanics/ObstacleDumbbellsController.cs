@@ -23,7 +23,7 @@ public class ObstacleDumbbellsController : MonoBehaviour
         {
             _activeJumpTimeReload -= Time.deltaTime;
         }
-        if(_rigidbody3d.velocity.y < -2)
+        if(_rigidbody3d.velocity.magnitude > 1f)
         {
             _wasInAir = true;
         }
@@ -63,6 +63,11 @@ public class ObstacleDumbbellsController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             _wasInAir = false;
+        }
+        
+        if (other.gameObject.CompareTag("Bomb"))
+        {
+            _rigidbody3d.velocity = Vector3.zero;
         }
     }
 }

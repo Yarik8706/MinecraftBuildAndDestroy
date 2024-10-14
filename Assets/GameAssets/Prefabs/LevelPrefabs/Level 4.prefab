@@ -83,10 +83,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _learningSteps:
   - learningBlockSpawnPosition: {fileID: 1703682048951585238}
-    targetBlockForDelete: {fileID: 8010513381823883247}
+    targetBlockForDelete: {fileID: 273720478170615569}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 3013865872532424284}
-    targetBlockForDelete: {fileID: 273720478170615569}
+    targetBlockForDelete: {fileID: 8010513381823883247}
     learningBuildStep: {fileID: 0}
 --- !u!1 &525229983936347096
 GameObject:

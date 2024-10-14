@@ -98,10 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _learningSteps:
   - learningBlockSpawnPosition: {fileID: 1452962941585504394}
-    targetBlockForDelete: {fileID: 1116605055328665080}
+    targetBlockForDelete: {fileID: 3665653441778253145}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 677854058105323650}
-    targetBlockForDelete: {fileID: 3665653441778253145}
+    targetBlockForDelete: {fileID: 1116605055328665080}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 1125581144001877203}
     targetBlockForDelete: {fileID: 0}

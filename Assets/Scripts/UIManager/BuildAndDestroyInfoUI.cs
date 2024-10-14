@@ -18,12 +18,12 @@ namespace UIManager
         
         public void SetBuildCount(int count)
         {
-            _buildCountText.SetText(count.ToString());
+            _buildCountText.text = (count.ToString());
         }
         
         public void SetDestroyCount(int count)
         {
-            _destroyCountText.SetText(count.ToString());
+            _destroyCountText.text = (count.ToString());
         }
 
         public void AddBuildCount(int count)

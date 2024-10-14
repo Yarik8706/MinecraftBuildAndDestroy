@@ -27,8 +27,8 @@ namespace Platformer.Mechanics
         
         private void HandleInteractions()
         {
-            Ray forwardDirection = new Ray(transform.position + new Vector3(0, 0.7f, 0), transform.TransformDirection(Vector3.forward));
-            if (Physics.Raycast(forwardDirection, 0.6f, groundLayerMask))
+            Ray forwardDirection = new Ray(transform.position + new Vector3(0, 0.5f, 0), transform.TransformDirection(Vector3.forward));
+            if (Physics.Raycast(forwardDirection, 0.65f, groundLayerMask))
             {
                 transform.Rotate(0, -180, 0);
             }

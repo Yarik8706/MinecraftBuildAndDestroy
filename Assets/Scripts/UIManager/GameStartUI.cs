@@ -47,9 +47,15 @@ public class GameStartUI : MonoBehaviour
     {
         YandexGame.RewardVideoEvent += OnCompleteAds;
         EventDispatcherExtension.RegisterListener(EventID.GameStartUI, (param) => Show());
-        EventDispatcherExtension.RegisterListener(EventID.OnCarMove, (param) => Hide());
+        EventDispatcherExtension.RegisterListener(EventID.OnCarMove, (param) => HideAllWithoutReplay());
         EventDispatcherExtension.RegisterListener(EventID.Victory,(param) => Hide());   
         EventDispatcherExtension.RegisterListener(EventID.Lose, (param) => Hide());
+    }
+
+    public void HideAllWithoutReplay()
+    {
+        _backHomeButton.gameObject.SetActive(false);
+        _currenLevelText.gameObject.SetActive(false);
     }
 
     private void OnDisable()
@@ -118,7 +124,6 @@ public class GameStartUI : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             _timeShowInter--;
-            
         }
     } 
     
@@ -136,14 +141,18 @@ public class GameStartUI : MonoBehaviour
     {
         GameManager.Instance.ReplayGame();
         EventDispatcherExtension.PostEvent(EventID.Home);
-        Hide() ;
+        Hide();
     }
+    
     private void SetCurrentText()
     {
         _currenLevelText.text = levelText.GetText() + (GameDataManager.GetLevel() +1);
     }
+    
     private void Show()
     {
+        _backHomeButton.gameObject.SetActive(true);
+        _currenLevelText.gameObject.SetActive(true);
         gameObject.SetActive(true);
         SetCurrentText();
         if(_timeShowInter < 30)
@@ -152,9 +161,12 @@ public class GameStartUI : MonoBehaviour
         }
         StartCoroutine(CountDownTimeShow());
     }
-    private void Hide() => gameObject.SetActive(false);
-
     
+    private void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnCompleteAds(int id)
     {
         if(id != (int)VideoAdsId.SkipLevel) return;
@@ -177,9 +189,5 @@ public class GameStartUI : MonoBehaviour
                 SetCurrentText();
             }
         }
-    }
-    private void FailedAds()
-    {
-        Debug.Log("Ads");
     }
 }

@@ -64,6 +64,7 @@ namespace Platformer.Mechanics
                _spawnBlockControl.StartSpawn();
             });
             _cameraTransform.DORotate(_editCameraTransform.rotation.eulerAngles, 0.5f);
+            LearningMechanic.Instance.SetLearningMode();
         }
 
         public void ResetState()

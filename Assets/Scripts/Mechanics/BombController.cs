@@ -44,7 +44,8 @@ public class BombController : MonoBehaviour, ICanDied
             Explosion();
             return;
         }
-        if (other.gameObject.CompareTag("Ground") && wasInAir){
+        if (other.gameObject.CompareTag("Ground") && wasInAir && other.contacts[0].normal.y > 0.8f){
+            
             Explosion();
             return;
         }

@@ -27,7 +27,6 @@ namespace ShopMechanics
         [SerializeField] private ShopSkinControl _shopSkinControl;
         [SerializeField] private GameObject _shopUI;
         [SerializeField] private Button _closeShopButton;
-        [SerializeField] private Button _rewardAdsButton;
         [SerializeField] private TextMeshProUGUI _noEnoughCoinsText;
         
         private int _newItemIndex;
@@ -168,13 +167,6 @@ namespace ShopMechanics
                 EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
                 EventDispatcherExtension.PostEvent(EventID.Home);
                 CloseShop();
-            });
-
-            _rewardAdsButton.onClick.RemoveAllListeners();
-            _rewardAdsButton.onClick.AddListener(() =>
-            {
-                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
-                YandexGame.RewVideoShow((int) VideoAdsId.Reward2);
             });
         }
 

@@ -107,11 +107,11 @@ MonoBehaviour:
   - learningBlockSpawnPosition: {fileID: 4146408319697000626}
     targetBlockForDelete: {fileID: 2024824334559164950}
     learningBuildStep: {fileID: 0}
-  - learningBlockSpawnPosition: {fileID: 224680973221842350}
-    targetBlockForDelete: {fileID: 5945410644585610432}
-    learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 5308524085806115546}
     targetBlockForDelete: {fileID: 6018175900212089973}
+    learningBuildStep: {fileID: 0}
+  - learningBlockSpawnPosition: {fileID: 224680973221842350}
+    targetBlockForDelete: {fileID: 5945410644585610432}
     learningBuildStep: {fileID: 0}
   - learningBlockSpawnPosition: {fileID: 488265677782139285}
     targetBlockForDelete: {fileID: 4007520469540594843}
@@ -1382,7 +1382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5666393186233556125, guid: d662f4b78934b4445ac680432e64215a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9200001
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 5666393186233556125, guid: d662f4b78934b4445ac680432e64215a, type: 3}
       propertyPath: m_LocalPosition.y

@@ -31,8 +31,11 @@ namespace Platformer.Mechanics
         [SerializeField] private Canvas Canvas;
         [SerializeField] private Material gridSpriteRenderersMaterial;
 
+        public GameObject clickMarkPrefab;
+        public GameObject blocksBuildAndDestroyInfo;
         public GameObject learningBlockForStartGame;
         public GameObject learningBlockPrefab;
+        public GameObject learningArrow;
         public GameObject startGameButton;
         public int currentLevel;
         public List<GameObject> listEffect = new();
@@ -44,6 +47,16 @@ namespace Platformer.Mechanics
         private const string IS_DEATH = "IsDeath";
         
         public int Coin { get; set; }
+
+        [ContextMenu(nameof(JumpToLevel24))]
+        public void JumpToLevel24()
+        {
+            GameDataManager.AddLevel(24);
+            NextLevel();
+            EventDispatcherExtension.PostEvent(EventID.StartGame);
+            EventDispatcherExtension.PostEvent(EventID.GameStartUI);
+            EventDispatcherExtension.PostEvent(EventID.IsPlayGame, true);
+        }
 
         private void Awake()
         {
@@ -129,6 +142,10 @@ namespace Platformer.Mechanics
         public void PlayerWin(PlayerController playerRef, int reward)
         {
             if(!GameState.IsGameStart && !GameState.IsEditMode) return;
+            if (!GameState.IsGameStart)
+            {
+                GameplayControl.Instance.StartLevelPlayback();
+            }
             GameState.IsGameStart = false;
             Instance.Coin += reward;
             MetricaSender.Instance.SendLevelCompleteData();
