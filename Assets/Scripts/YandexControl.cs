@@ -17,6 +17,9 @@ public class YandexControl : MonoBehaviour
 
     public IEnumerator YandexSDKEnabledCoroutine()
     {
+#if UNITY_EDITOR
+        YandexGame.ResetSaveProgress();
+#endif
         yield return new WaitUntil(() => YandexGame.SDKEnabled);
         YandexGame.InitEnvirData();
         Optimizer.Instance.Init();

@@ -15,7 +15,7 @@ namespace UIManager
         [SerializeField] private TMP_Text _freeLearningCountText;
         [SerializeField] private GameObject _adsIcon;
         
-        public const int LevelWhenLearningStop = -1;
+        public const int LevelWhenLearningStop = 26;
 
         private bool _learningMessageState = true;
         

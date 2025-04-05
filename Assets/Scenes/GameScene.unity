@@ -28435,16 +28435,16 @@ MonoBehaviour:
     levels:
     - {fileID: 525229983699430168, guid: 155d76cee26351d42862020f3455a79e, type: 3}
     - {fileID: 525229983699430168, guid: 073ad319516e12543990d1051ba0c46a, type: 3}
-    - {fileID: 525229983699430168, guid: 007c8f50840f0c44f885feb1f3cc00ca, type: 3}
-    - {fileID: 525229983699430168, guid: b3ceb88400ca31548be8226cf0c83dc5, type: 3}
-    - {fileID: 525229983699430168, guid: 9a7af8b2ecabca741bee004404edf3b1, type: 3}
-    - {fileID: 525229983699430168, guid: 319e6994e3f4345469fba327ad504d34, type: 3}
     - {fileID: 525229983699430168, guid: 4081e8f8b75d92144b45211fd702b8c2, type: 3}
     - {fileID: 525229983699430168, guid: 8044d114e61527a469ecbd9ff70184e3, type: 3}
+    - {fileID: 525229983699430168, guid: 47bea66d44189af4d98185bc27e825eb, type: 3}
     - {fileID: 525229983699430168, guid: 2c2d8e2df8cb25b4fad97d3afceb696e, type: 3}
     - {fileID: 525229983699430168, guid: b0b6ef48bae1eaf4ea57efc12f50b433, type: 3}
-    - {fileID: 525229983699430168, guid: 47bea66d44189af4d98185bc27e825eb, type: 3}
     - {fileID: 525229983699430168, guid: 9f58c32bf08362d498ed467fa4e54013, type: 3}
+    - {fileID: 525229983699430168, guid: b3ceb88400ca31548be8226cf0c83dc5, type: 3}
+    - {fileID: 525229983699430168, guid: 007c8f50840f0c44f885feb1f3cc00ca, type: 3}
+    - {fileID: 525229983699430168, guid: 9a7af8b2ecabca741bee004404edf3b1, type: 3}
+    - {fileID: 525229983699430168, guid: 319e6994e3f4345469fba327ad504d34, type: 3}
     - {fileID: 525229983699430168, guid: 9b38ec7808d62cc46a7611d133a8fdd8, type: 3}
     - {fileID: 525229983699430168, guid: 454594642898b534c805563c8dd77303, type: 3}
     - {fileID: 525229983699430168, guid: 1b511b0ead3da1241903c95ddd8a59f1, type: 3}
@@ -56829,7 +56829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1828058115
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66975,6 +66975,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5265517182097053638, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
   m_PrefabInstance: {fileID: 6969931820245799781}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &224000010335227884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6180063293315335786, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+  m_PrefabInstance: {fileID: 6969931820245799781}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014040323227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17280642a3c064fb3bb6ad029ac7310e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &260475952728709770
 Transform:
   m_ObjectHideFlags: 0
@@ -67253,9 +67264,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1247132601}
     m_Modifications:
+    - target: {fileID: 1125145444756984278, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125145444756984278, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 224000010335227884}
+    - target: {fileID: 1125145444756984278, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClosePopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125145444756984278, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FortuneWheelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3421323655990824638, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
       propertyPath: m_Name
       value: FortuneWheel Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421323655990824638, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5265517182097053638, guid: 4643c3b903aeff849a50b29487554f9a, type: 3}
       propertyPath: m_Pivot.x

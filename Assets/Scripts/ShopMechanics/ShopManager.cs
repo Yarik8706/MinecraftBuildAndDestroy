@@ -48,11 +48,18 @@ namespace ShopMechanics
             YandexGame.RewardVideoEvent += OnCompleteShopAds;
             CharacterItem.BuySkinEvent.AddListener(OnPurchaseItem);
             CharacterItem.SelectSkinEvent.AddListener(OnSelectItem);
+            EventDispatcherExtension.RegisterListener(EventID.OpenShop, o => OpenShop());
         }
         
         private void OnDisable()
         {
             YandexGame.RewardVideoEvent -= OnCompleteShopAds;
+            EventDispatcher.Instance.RemoveListener(EventID.OpenShop, o => OpenShop());
+        }
+
+        public void OpenShop()
+        {
+            _shopUI.SetActive(true);
         }
 
         private void OnCompleteShopAds(int obj)

@@ -108,6 +108,10 @@ namespace Platformer.Mechanics
             {
                 currentLevel = Random.Range(10, model.levels.Count);
             }
+            if (GameDataManager.GetLevel() != 0 && GameDataManager.GetLevel() % 6 == 0)
+            {
+                YandexGame.ReviewShow(false);
+            }
             MetricaSender.Instance.SendLevelStartData();
             _objLevel = Instantiate(model.levels[currentLevel], transform);
         }

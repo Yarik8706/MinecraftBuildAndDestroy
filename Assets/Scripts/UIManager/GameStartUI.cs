@@ -136,7 +136,6 @@ public class GameStartUI : MonoBehaviour
         GameManager.Instance.ReplayGame();
         EventDispatcherExtension.PostEvent(EventID.StartGame);
         EventDispatcherExtension.PostEvent(EventID.IsPlayGame,true);
-        if(LearningMechanic.Instance) LearningMechanic.Instance.SetLearningMode();
     }
 
     private void OnBackHomeButton()

@@ -4,7 +4,10 @@ using System;
 using System.Linq;
 using UnityEngine.Events;
 using Flatformer.GameData;
+using Platformer.Observer;
+using UnityEngine.UIElements;
 using YG;
+using Button = UnityEngine.UI.Button;
 
 public class FortuneWheelManager : MonoBehaviour
 {
@@ -43,6 +46,7 @@ public class FortuneWheelManager : MonoBehaviour
 
     public void ClosePopup()
     {
+        EventDispatcherExtension.PostEvent(EventID.Home);
         gameObject.SetActive(false);
     }
 

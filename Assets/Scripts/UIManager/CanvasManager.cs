@@ -62,8 +62,8 @@ public class CanvasManager : MonoBehaviour
         _openShopButton.onClick.AddListener(() =>
         {
             SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
-            Hide();
             EventDispatcherExtension.PostEvent(EventID.OpenShop);
+            Hide();
         });
 
         //
@@ -77,8 +77,9 @@ public class CanvasManager : MonoBehaviour
         openSpinButton.onClick.AddListener(() =>
         {
             SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
-            Hide();
             openSpin.SetActive(true);
+            Debug.Log("Start dgadsfsfsd");
+            Hide();
         });
     }
 
